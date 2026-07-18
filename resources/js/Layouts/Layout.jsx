@@ -1,14 +1,28 @@
+import { Link } from "@inertiajs/react";
+
 export default function Layout({ children }) {
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white shadow">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h1 className="py-4 text-xl font-bold">Loja de Carros</h1>
-                </div>
-            </nav>
-            <main>
-                {children}
-            </main>
+        <div className="bg-dark-950 text-dark-50 font-manrope min-h-screen">
+            <header className="sticky top-0 z-50 flex items-center justify-between px-[6vw] py-[18px] bg-dark-950/80 backdrop-blur-[12px] border-b border-white/[0.06]">
+                <div className="text-accent font-bold text-xl">🚗 LOJA DE CARROS</div>
+
+                <nav className="hidden md:flex items-center gap-[34px] text-sm font-semibold">
+                    <a href="/#catalogo" className="hover:text-accent transition-colors">Catálogo</a>
+                    <a href="/#sobre"    className="hover:text-accent transition-colors">Sobre</a>
+                    <a href="/#local"    className="hover:text-accent transition-colors">Localização</a>
+                    <a href="/#contato"  className="hover:text-accent transition-colors">Contato</a>
+                </nav>
+
+                <a href="/#contato" className="bg-accent text-dark-950 font-bold px-5 py-3 rounded-full text-sm hover:opacity-90 transition-opacity">
+                    Fale conosco
+                </a>
+            </header>
+
+            <main>{children}</main>
+
+            <footer className="border-t border-white/[0.06] mt-24 py-12 px-[6vw] text-center text-dark-300 text-sm">
+                <p>&copy; {new Date().getFullYear()} Loja de Carros. Todos os direitos reservados.</p>
+            </footer>
         </div>
     );
 }
