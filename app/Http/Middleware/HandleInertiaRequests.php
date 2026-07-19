@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Admin;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -17,7 +18,7 @@ class HandleInertiaRequests extends Middleware
 
     public function share(Request $request): array
     {
-        $adminId = session("admin_id");
+        $adminId   = session("admin_id");
         $adminAtual = $adminId ? Admin::find($adminId) : null;
 
         return [
@@ -29,6 +30,14 @@ class HandleInertiaRequests extends Middleware
                 "role" => $adminAtual->role,
                 "ativo"=> $adminAtual->ativo,
             ] : null,
+            "siteCfg" => fn () => [
+                "nome_loja"  => Setting::get("nome_loja", "Loja de Carros"),
+                "logo"       => Setting::get("logo"),
+                "whatsapp"   => Setting::get("whatsapp", ""),
+                "telefone"   => Setting::get("telefone", ""),
+                "email"      => Setting::get("email", ""),
+                "endereco"   => Setting::get("endereco", ""),
+            ],
         ];
     }
 }

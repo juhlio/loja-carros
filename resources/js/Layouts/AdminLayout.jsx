@@ -26,6 +26,11 @@ export default function AdminLayout({ children }) {
                                 Usuarios
                             </Link>
                         )}
+                        {adminAtual?.role === "super_admin" && (
+                            <Link href="/admin/configuracoes" className="font-semibold text-sm hover:text-accent transition-colors">
+                                Configuracoes
+                            </Link>
+                        )}
                         <Link href="/" className="font-semibold text-sm text-dark-300 hover:text-accent transition-colors">
                             Ver Site
                         </Link>
@@ -62,6 +67,9 @@ export default function AdminLayout({ children }) {
                         <Link href="/admin/carros" className="block font-semibold text-sm hover:text-accent transition-colors">Carros</Link>
                         {adminAtual?.role !== "vendedor" && (
                             <Link href="/admin/usuarios" className="block font-semibold text-sm hover:text-accent transition-colors">Usuarios</Link>
+                        )}
+                        {adminAtual?.role === "super_admin" && (
+                            <Link href="/admin/configuracoes" className="block font-semibold text-sm hover:text-accent transition-colors">Configuracoes</Link>
                         )}
                         <Link href="/admin/perfil" className="block font-semibold text-sm hover:text-accent transition-colors">Meu Perfil</Link>
                         <Link href="/" className="block font-semibold text-sm text-dark-300 hover:text-accent transition-colors">Ver Site</Link>
