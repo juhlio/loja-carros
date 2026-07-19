@@ -38,13 +38,17 @@ export default function Configuracoes({ settings }) {
         e.preventDefault();
         setLoading(true);
         const data = new FormData();
+        // Campos de texto - pular logo (string) e _logo_file (File)
+        const skip = new Set(["logo", "_logo_file"]);
         Object.entries(form).forEach(([k, v]) => {
-            if (k === "_logo_file") {
-                data.append("logo", v);
-            } else if (v !== null && v !== undefined) {
+            if (!skip.has(k) && v !== null && v !== undefined) {
                 data.append(k, v);
             }
         });
+        // Anexa arquivo de logo apenas se o usuario selecionou um novo
+        if (form._logo_file instanceof File) {
+            data.append("logo", form._logo_file);
+        }
         router.post("/admin/configuracoes", data, {
             forceFormData: true,
             onFinish: () => setLoading(false),
