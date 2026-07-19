@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 export default function AdminLayout({ children }) {
+    const { adminAtual, flash } = usePage().props;
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -9,7 +10,7 @@ export default function AdminLayout({ children }) {
             <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-dark-950/80 backdrop-blur-[12px]">
                 <div className="px-[6vw] py-4 flex items-center justify-between">
                     <Link href="/admin/carros" className="flex items-center gap-3">
-                        <span className="text-accent font-bold text-2xl">🚗</span>
+                        <span className="font-bold text-xl text-accent font-archivo">LC</span>
                         <div>
                             <div className="font-bold text-sm">PAINEL ADMIN</div>
                             <div className="text-xs text-dark-400">Loja de Carros</div>
@@ -20,12 +21,31 @@ export default function AdminLayout({ children }) {
                         <Link href="/admin/carros" className="font-semibold text-sm hover:text-accent transition-colors">
                             Carros
                         </Link>
-                        <Link href="/" className="font-semibold text-sm hover:text-accent transition-colors">
+                        {adminAtual?.role !== "vendedor" && (
+                            <Link href="/admin/usuarios" className="font-semibold text-sm hover:text-accent transition-colors">
+                                Usuarios
+                            </Link>
+                        )}
+                        <Link href="/" className="font-semibold text-sm text-dark-300 hover:text-accent transition-colors">
                             Ver Site
                         </Link>
-                        <a href="/logout" className="font-semibold text-sm text-dark-300 hover:text-accent transition-colors">
-                            Sair
-                        </a>
+
+                        <div className="relative group">
+                            <button className="flex items-center gap-2 font-semibold text-sm hover:text-accent transition-colors">
+                                <span className="w-7 h-7 rounded-full bg-accent text-dark-950 flex items-center justify-center text-xs font-black">
+                                    {adminAtual?.nome?.[0]?.toUpperCase() ?? "A"}
+                                </span>
+                                <span>{adminAtual?.nome ?? "Admin"}</span>
+                            </button>
+                            <div className="absolute right-0 mt-2 w-48 bg-dark-800 border border-white/[0.07] rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                                <Link href="/admin/perfil" className="block px-4 py-3 text-sm hover:bg-dark-700 rounded-t-xl font-semibold">
+                                    Meu Perfil
+                                </Link>
+                                <a href="/logout" className="block px-4 py-3 text-sm hover:bg-dark-700 rounded-b-xl text-red-400 font-semibold">
+                                    Sair
+                                </a>
+                            </div>
+                        </div>
                     </nav>
 
                     <button
@@ -33,20 +53,29 @@ export default function AdminLayout({ children }) {
                         className="md:hidden text-accent text-2xl leading-none"
                         aria-label="Menu"
                     >
-                        {menuOpen ? "✕" : "☰"}
+                        {menuOpen ? "x" : "="}
                     </button>
                 </div>
 
                 {menuOpen && (
                     <div className="md:hidden border-t border-white/[0.06] px-[6vw] py-4 space-y-3">
                         <Link href="/admin/carros" className="block font-semibold text-sm hover:text-accent transition-colors">Carros</Link>
-                        <Link href="/" className="block font-semibold text-sm hover:text-accent transition-colors">Ver Site</Link>
-                        <a href="/logout" className="block font-semibold text-sm text-dark-300 hover:text-accent transition-colors">Sair</a>
+                        {adminAtual?.role !== "vendedor" && (
+                            <Link href="/admin/usuarios" className="block font-semibold text-sm hover:text-accent transition-colors">Usuarios</Link>
+                        )}
+                        <Link href="/admin/perfil" className="block font-semibold text-sm hover:text-accent transition-colors">Meu Perfil</Link>
+                        <Link href="/" className="block font-semibold text-sm text-dark-300 hover:text-accent transition-colors">Ver Site</Link>
+                        <a href="/logout" className="block font-semibold text-sm text-red-400 hover:opacity-70 transition-opacity">Sair</a>
                     </div>
                 )}
             </header>
 
             <main className="px-[6vw] py-8">
+                {flash?.message && (
+                    <div className="mb-6 bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-3 rounded-lg text-sm font-semibold">
+                        {flash.message}
+                    </div>
+                )}
                 {children}
             </main>
         </div>
