@@ -44,7 +44,7 @@ class SettingsController extends Controller
             "whatsapp"         => "nullable|string",
             "email"            => "nullable|email",
             "endereco"         => "nullable|string",
-            "logo"             => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
+            "logo"             => "nullable|image|mimes:jpeg,png,jpg,gif|max:20480",
             "sobre_titulo"     => "nullable|string",
             "sobre_texto"      => "nullable|string",
             "anos_mercado"     => "nullable|string",

@@ -21,6 +21,7 @@ export default function Configuracoes({ settings }) {
         settings.logo ? `/storage/${settings.logo}` : null
     );
     const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const set = (e) => {
         const { name, value } = e.target;
@@ -51,6 +52,8 @@ export default function Configuracoes({ settings }) {
         }
         router.post("/admin/configuracoes", data, {
             forceFormData: true,
+            onError: (errs) => setErrors(errs),
+            onSuccess: () => setErrors({}),
             onFinish: () => setLoading(false),
         });
     };
@@ -84,7 +87,10 @@ export default function Configuracoes({ settings }) {
                                         onChange={handleLogo}
                                         className="w-full px-4 py-3 bg-dark-800 border border-white/[0.07] rounded-lg text-dark-50 file:bg-accent file:text-dark-950 file:border-0 file:rounded file:px-3 file:py-1 file:font-bold cursor-pointer text-sm"
                                     />
-                                    <p className="text-xs text-dark-500 mt-2">PNG, JPG (max 2MB)</p>
+                                    <p className="text-xs text-dark-500 mt-2">PNG, JPG (max 20MB)</p>
+                                    {errors.logo && (
+                                        <p className="text-xs text-red-500 mt-1">{errors.logo}</p>
+                                    )}
                                 </div>
                             </div>
                         </div>
