@@ -44,8 +44,16 @@ export default function Catalogo({ carros = [] }) {
                         {filteredCarros.map(carro => (
                             <Link key={carro.id} href={`/carro/${carro.id}`} className="group">
                                 <article className="bg-dark-900 border border-white/[0.07] rounded-2xl overflow-hidden flex flex-col hover:border-accent/50 transition-colors">
-                                    <div className="bg-stripe aspect-video relative flex items-center justify-center group-hover:opacity-80 transition-opacity">
-                                        <span className="font-mono text-xs text-dark-400">[ {carro.modelo} ]</span>
+                                    <div className="bg-stripe aspect-video relative flex items-center justify-center overflow-hidden group-hover:opacity-80 transition-opacity">
+                                        {carro.imagens && carro.imagens.length > 0 ? (
+                                            <img
+                                                src={`/storage/${carro.imagens[0]}`}
+                                                alt={`${carro.marca} ${carro.modelo}`}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <span className="font-mono text-xs text-dark-400">[ {carro.modelo} ]</span>
+                                        )}
                                     </div>
                                     <div className="p-5 flex flex-col gap-3 flex-1">
                                         <div>
