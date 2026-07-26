@@ -12,17 +12,19 @@ class SettingsController extends Controller
 {
     private array $chaves = [
         "nome_loja", "descricao", "telefone", "whatsapp",
-        "email", "endereco", "logo",
+        "email", "endereco_titulo", "endereco", "endereco_2_titulo", "endereco_2", "logo",
         "sobre_titulo", "sobre_texto",
         "anos_mercado", "carros_vendidos", "avaliacao_google",
     ];
 
     private array $padroes = [
-        "nome_loja"       => "Loja de Carros",
-        "sobre_titulo"    => "Quem somos",
-        "anos_mercado"    => "12",
-        "carros_vendidos" => "+500",
-        "avaliacao_google"=> "4,9",
+        "nome_loja"        => "Loja de Carros",
+        "sobre_titulo"     => "Quem somos",
+        "anos_mercado"     => "12",
+        "carros_vendidos"  => "+500",
+        "avaliacao_google" => "4,9",
+        "endereco_titulo"  => "Loja 1",
+        "endereco_2_titulo"=> "Loja 2",
     ];
 
     public function index()
@@ -43,7 +45,10 @@ class SettingsController extends Controller
             "telefone"         => "nullable|string",
             "whatsapp"         => "nullable|string",
             "email"            => "nullable|email",
+            "endereco_titulo"  => "nullable|string",
             "endereco"         => "nullable|string",
+            "endereco_2_titulo"=> "nullable|string",
+            "endereco_2"       => "nullable|string",
             "logo"             => "nullable|image|mimes:jpeg,png,jpg,gif|max:20480",
             "sobre_titulo"     => "nullable|string",
             "sobre_texto"      => "nullable|string",

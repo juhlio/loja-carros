@@ -36,7 +36,10 @@ class HandleInertiaRequests extends Middleware
                 "whatsapp"   => Setting::get("whatsapp", ""),
                 "telefone"   => Setting::get("telefone", ""),
                 "email"      => Setting::get("email", ""),
-                "endereco"   => Setting::get("endereco", ""),
+                "endereco_titulo"   => Setting::get("endereco_titulo", "Loja 1"),
+                "endereco"          => Setting::get("endereco", ""),
+                "endereco_2_titulo" => Setting::get("endereco_2_titulo", "Loja 2"),
+                "endereco_2"        => Setting::get("endereco_2", ""),
             ],
         ];
     }

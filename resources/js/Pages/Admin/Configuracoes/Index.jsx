@@ -120,8 +120,22 @@ export default function Configuracoes({ settings }) {
                             <input type="email" name="email" value={form.email ?? ""} onChange={set} className={inputCls} placeholder="contato@loja.com" />
                         </div>
                         <div>
-                            <label className={labelCls}>Endereco</label>
-                            <input type="text" name="endereco" value={form.endereco ?? ""} onChange={set} className={inputCls} placeholder="Rua Exemplo, 123 - Chapeco, SC" />
+                            <label className={labelCls}>Endereco (loja 1)</label>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <input type="text" name="endereco_titulo" value={form.endereco_titulo ?? ""} onChange={set} className={inputCls} placeholder="Titulo, ex: Loja Centro" />
+                                <div className="sm:col-span-2">
+                                    <input type="text" name="endereco" value={form.endereco ?? ""} onChange={set} className={inputCls} placeholder="Rua Exemplo, 123 - Chapeco, SC" />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label className={labelCls}>Endereco (loja 2)</label>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <input type="text" name="endereco_2_titulo" value={form.endereco_2_titulo ?? ""} onChange={set} className={inputCls} placeholder="Titulo, ex: Loja Bairro" />
+                                <div className="sm:col-span-2">
+                                    <input type="text" name="endereco_2" value={form.endereco_2 ?? ""} onChange={set} className={inputCls} placeholder="Av. Exemplo, 456 - Chapeco, SC" />
+                                </div>
+                            </div>
                         </div>
                     </Section>
 
