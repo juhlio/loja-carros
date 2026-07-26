@@ -15,5 +15,5 @@ services:
     ports: !reset []
 
   nginx:
-    ports: !reset
+    ports: !override
       - "8081:80"
