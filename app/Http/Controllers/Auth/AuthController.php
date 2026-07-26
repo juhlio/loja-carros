@@ -27,14 +27,17 @@ class AuthController extends Controller
             return back()->withErrors(['email' => 'Credenciais inválidas']);
         }
 
+        $request->session()->regenerate();
         session(['admin_id' => $admin->id, 'admin_nome' => $admin->nome]);
 
         return redirect('/admin/carros');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         session()->forget(['admin_id', 'admin_nome']);
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/login');
     }
 }

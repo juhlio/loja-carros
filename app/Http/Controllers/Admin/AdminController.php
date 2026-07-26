@@ -23,20 +23,14 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $adminAtual = Admin::find(session("admin_id"));
-
-        if (!$adminAtual->isAdmin()) {
-            return back()->withErrors(["error" => "Sem permissao"]);
-        }
-
-        $request->validate([
+        $validated = $request->validate([
             "nome"     => "required|string",
             "email"    => "required|email|unique:admins",
             "password" => "required|string|min:6",
             "role"     => "required|in:super_admin,admin,vendedor",
         ]);
 
-        Admin::create($request->all());
+        Admin::create($validated);
 
         return redirect()->route("admin.usuarios.index")->with("message", "Usuario criado com sucesso!");
     }
@@ -48,12 +42,6 @@ class AdminController extends Controller
 
     public function update(Request $request, Admin $usuario)
     {
-        $adminAtual = Admin::find(session("admin_id"));
-
-        if (!$adminAtual->isAdmin()) {
-            return back()->withErrors(["error" => "Sem permissao"]);
-        }
-
         $request->validate([
             "nome"     => "required|string",
             "email"    => "required|email|unique:admins,email," . $usuario->id,
@@ -74,10 +62,8 @@ class AdminController extends Controller
 
     public function destroy(Admin $usuario)
     {
-        $adminAtual = Admin::find(session("admin_id"));
-
-        if (!$adminAtual->isAdmin() || $usuario->id === $adminAtual->id) {
-            return back()->withErrors(["error" => "Sem permissao"]);
+        if ((int) session("admin_id") === $usuario->id) {
+            return back()->withErrors(["error" => "Voce nao pode deletar sua propria conta"]);
         }
 
         $usuario->delete();
