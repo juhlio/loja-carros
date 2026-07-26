@@ -14,6 +14,7 @@ export default function Create() {
     const [imagens, setImagens] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const set = (e) => {
         const { name, value } = e.target;
@@ -34,6 +35,8 @@ export default function Create() {
         imagens.forEach(f => data.append("imagens[]", f));
         router.post("/admin/carros", data, {
             forceFormData: true,
+            onError: (errs) => setErrors(errs),
+            onSuccess: () => setErrors({}),
             onFinish: () => setLoading(false),
         });
     };
@@ -114,7 +117,7 @@ export default function Create() {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                                 <p className="text-dark-100 font-semibold">Clique para selecionar imagens</p>
-                                <p className="text-dark-400 text-sm mt-1">JPG, PNG (max 2MB cada)</p>
+                                <p className="text-dark-400 text-sm mt-1">JPG, PNG (max 20MB cada)</p>
                             </label>
                         </div>
                         {imagePreviews.length > 0 && (
@@ -127,6 +130,14 @@ export default function Create() {
                             </div>
                         )}
                     </div>
+
+                    {Object.keys(errors).length > 0 && (
+                        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 space-y-1">
+                            {Object.values(errors).map((msg, i) => (
+                                <p key={i} className="text-sm text-red-400">{msg}</p>
+                            ))}
+                        </div>
+                    )}
 
                     <div className="flex gap-4 pt-2">
                         <button type="submit" disabled={loading} className="flex-1 bg-accent text-dark-950 font-bold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50">

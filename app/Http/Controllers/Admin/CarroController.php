@@ -33,7 +33,7 @@ class CarroController extends Controller
             'km'           => 'required|integer',
             'descricao'    => 'nullable|string',
             'placa'        => 'required|unique:carros',
-            'imagens.*'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagens.*'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480',
         ]);
 
         $imagens = [];
@@ -66,7 +66,7 @@ class CarroController extends Controller
             'km'           => 'required|integer',
             'descricao'    => 'nullable|string',
             'placa'        => 'required|unique:carros,placa,' . $carro->id,
-            'imagens.*'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagens.*'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480',
         ]);
 
         $imagens = $carro->imagens ?? [];

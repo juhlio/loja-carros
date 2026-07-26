@@ -10,6 +10,7 @@ export default function Edit({ carro }) {
     const [novasImagens, setNovasImagens] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const set = (e) => {
         const { name, value } = e.target;
@@ -35,6 +36,8 @@ export default function Edit({ carro }) {
         }
         router.post(`/admin/carros/${carro.id}`, data, {
             forceFormData: true,
+            onError: (errs) => setErrors(errs),
+            onSuccess: () => setErrors({}),
             onFinish: () => setLoading(false),
         });
     };
@@ -128,7 +131,7 @@ export default function Edit({ carro }) {
                                 <p className="text-dark-300 text-sm font-semibold">
                                     {carro.imagens && carro.imagens.length > 0 ? "Substituir imagens" : "Adicionar imagens"}
                                 </p>
-                                <p className="text-dark-500 text-xs mt-1">JPG, PNG (max 2MB cada)</p>
+                                <p className="text-dark-500 text-xs mt-1">JPG, PNG (max 20MB cada)</p>
                             </label>
                         </div>
                         {imagePreviews.length > 0 && (
@@ -154,6 +157,14 @@ export default function Edit({ carro }) {
                             <span className="text-sm font-semibold">Carro ativo (visivel no site)</span>
                         </label>
                     </div>
+
+                    {Object.keys(errors).length > 0 && (
+                        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 space-y-1">
+                            {Object.values(errors).map((msg, i) => (
+                                <p key={i} className="text-sm text-red-400">{msg}</p>
+                            ))}
+                        </div>
+                    )}
 
                     <div className="flex gap-4 pt-2">
                         <button type="submit" disabled={loading} className="flex-1 bg-accent text-dark-950 font-bold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50">
