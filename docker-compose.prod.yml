@@ -1,6 +1,6 @@
 services:
   app:
-    ports: []
+    ports: !reset []
     environment:
       - DB_HOST=mysql
       - DB_PORT=3306
@@ -12,8 +12,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: loja_carros
-    ports: []
+    ports: !reset []
 
   nginx:
-    ports:
+    ports: !reset
       - "8081:80"
