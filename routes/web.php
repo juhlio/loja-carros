@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\Site\CatalogoController;
+use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Auth\AuthController;
 
-Route::get("/", fn () => Inertia::render("Welcome"));
+Route::get("/", [HomeController::class, "index"]);
 Route::get("/catalogo",   [CatalogoController::class, "index"]);
 Route::get("/carro/{id}", [CatalogoController::class, "show"]);
 

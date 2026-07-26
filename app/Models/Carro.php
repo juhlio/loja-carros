@@ -19,11 +19,13 @@ class Carro extends Model
         'imagens',
         'placa',
         'ativo',
+        'destaque',
     ];
 
     protected $casts = [
-        'preco'   => 'decimal:2',
-        'ativo'   => 'boolean',
-        'imagens' => 'array',
+        'preco'    => 'decimal:2',
+        'ativo'    => 'boolean',
+        'destaque' => 'boolean',
+        'imagens'  => 'array',
     ];
 }

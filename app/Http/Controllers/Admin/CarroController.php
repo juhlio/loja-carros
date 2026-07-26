@@ -43,6 +43,7 @@ class CarroController extends Controller
             }
         }
         $validated['imagens'] = $imagens;
+        $validated['destaque'] = $request->boolean('destaque');
 
         Carro::create($validated);
 
@@ -81,6 +82,8 @@ class CarroController extends Controller
             }
         }
         $validated['imagens'] = $imagens;
+        $validated['ativo'] = $request->boolean('ativo');
+        $validated['destaque'] = $request->boolean('destaque');
 
         $carro->update($validated);
 

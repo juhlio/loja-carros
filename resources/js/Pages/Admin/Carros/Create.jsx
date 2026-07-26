@@ -9,7 +9,7 @@ export default function Create() {
     const [form, setForm] = useState({
         marca: "", modelo: "", ano: new Date().getFullYear(),
         preco: "", cor: "", combustivel: "gasolina",
-        km: 0, descricao: "", placa: "",
+        km: 0, descricao: "", placa: "", destaque: false,
     });
     const [imagens, setImagens] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
@@ -129,6 +129,19 @@ export default function Create() {
                                 ))}
                             </div>
                         )}
+                    </div>
+
+                    <div className="border-t border-white/[0.06] pt-4">
+                        <label className="flex items-center gap-3 cursor-pointer">
+                            <input
+                                type="checkbox"
+                                name="destaque"
+                                checked={!!form.destaque}
+                                onChange={(e) => setForm(prev => ({ ...prev, destaque: e.target.checked }))}
+                                className="w-4 h-4 accent-[#ffed00]"
+                            />
+                            <span className="text-sm font-semibold">Carro em destaque (aparece na home)</span>
+                        </label>
                     </div>
 
                     {Object.keys(errors).length > 0 && (

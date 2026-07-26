@@ -145,7 +145,7 @@ export default function Edit({ carro }) {
                         )}
                     </div>
 
-                    <div className="border-t border-white/[0.06] pt-4">
+                    <div className="border-t border-white/[0.06] pt-4 space-y-3">
                         <label className="flex items-center gap-3 cursor-pointer">
                             <input
                                 type="checkbox"
@@ -155,6 +155,16 @@ export default function Edit({ carro }) {
                                 className="w-4 h-4 accent-[#ffed00]"
                             />
                             <span className="text-sm font-semibold">Carro ativo (visivel no site)</span>
+                        </label>
+                        <label className="flex items-center gap-3 cursor-pointer">
+                            <input
+                                type="checkbox"
+                                name="destaque"
+                                checked={!!form.destaque}
+                                onChange={(e) => setForm(prev => ({ ...prev, destaque: e.target.checked }))}
+                                className="w-4 h-4 accent-[#ffed00]"
+                            />
+                            <span className="text-sm font-semibold">Carro em destaque (aparece na home)</span>
                         </label>
                     </div>
 
