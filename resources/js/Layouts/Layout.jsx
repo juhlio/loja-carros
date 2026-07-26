@@ -11,7 +11,7 @@ export default function Layout({ children }) {
             <header className="sticky top-0 z-50 flex items-center justify-between px-[6vw] py-[18px] bg-dark-950/80 backdrop-blur-[12px] border-b border-white/[0.06]">
                 <Link href="/" className="flex items-center gap-3">
                     {logo ? (
-                        <img src={`/storage/${logo}`} alt={nomeLoja} className="h-9 w-auto object-contain" />
+                        <img src={`/storage/${logo}`} alt={nomeLoja} className="h-12 md:h-20 w-auto object-contain" />
                     ) : (
                         <span className="text-accent font-archivo font-black text-lg tracking-tight">{nomeLoja.toUpperCase()}</span>
                     )}
