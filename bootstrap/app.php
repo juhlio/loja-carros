@@ -11,6 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Atrás do nginx (reverse proxy) que termina o TLS: confiar nos
+        // cabeçalhos X-Forwarded-* para detectar HTTPS e gerar URLs corretas.
+        $middleware->trustProxies(at: '*');
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
         ]);
