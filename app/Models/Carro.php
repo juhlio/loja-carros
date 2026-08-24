@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Carro extends Model
 {
@@ -28,4 +29,16 @@ class Carro extends Model
         'destaque' => 'boolean',
         'imagens'  => 'array',
     ];
+
+    protected $appends = ['slug', 'url'];
+
+    public function getSlugAttribute(): string
+    {
+        return Str::slug("{$this->marca}-{$this->modelo}-{$this->ano}");
+    }
+
+    public function getUrlAttribute(): string
+    {
+        return "/carro/{$this->id}-{$this->slug}";
+    }
 }

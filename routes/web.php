@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\AuthController;
 
 Route::get("/", [HomeController::class, "index"]);
 Route::get("/catalogo",   [CatalogoController::class, "index"]);
-Route::get("/carro/{id}", [CatalogoController::class, "show"]);
+Route::get("/carro/{id}", [CatalogoController::class, "show"])->where("id", "[0-9]+(-.*)?");
 
 Route::get("/login",  [AuthController::class, "showLogin"])->name("login");
 Route::post("/login", [AuthController::class, "login"])->middleware("throttle:5,1");

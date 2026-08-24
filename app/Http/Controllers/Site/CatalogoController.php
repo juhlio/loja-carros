@@ -16,7 +16,12 @@ class CatalogoController extends Controller
 
     public function show($id)
     {
-        $carro = Carro::where("ativo", true)->findOrFail($id);
+        $carro = Carro::where("ativo", true)->findOrFail((int) $id);
+
+        if ($id !== "{$carro->id}-{$carro->slug}") {
+            return redirect($carro->url, 301);
+        }
+
         return Inertia::render("Site/DetalheCarro", ["carro" => $carro]);
     }
 }

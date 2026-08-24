@@ -42,7 +42,7 @@ export default function Catalogo({ carros = [] }) {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filteredCarros.map(carro => (
-                            <Link key={carro.id} href={`/carro/${carro.id}`} className="group">
+                            <Link key={carro.id} href={carro.url} className="group">
                                 <article className="bg-dark-900 border border-white/[0.07] rounded-2xl overflow-hidden flex flex-col hover:border-accent/50 transition-colors">
                                     <div className="bg-stripe aspect-video relative flex items-center justify-center overflow-hidden group-hover:opacity-80 transition-opacity">
                                         {carro.imagens && carro.imagens.length > 0 ? (
