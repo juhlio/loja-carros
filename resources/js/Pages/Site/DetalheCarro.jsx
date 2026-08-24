@@ -66,7 +66,7 @@ export default function DetalheCarro({ carro }) {
 
                             <div className="flex flex-col gap-3">
                                 <a
-                                    href="https://wa.me/5548999999999"
+                                    href="https://wa.me/5549991698515"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-full block text-center bg-accent text-dark-950 font-bold py-4 rounded-lg hover:opacity-90 transition-opacity"
@@ -144,7 +144,7 @@ export default function DetalheCarro({ carro }) {
                     </p>
                     <div className="flex gap-4 justify-center flex-wrap">
                         <a
-                            href="https://wa.me/5548999999999"
+                            href="https://wa.me/5549991698515"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="bg-accent text-dark-950 font-bold px-8 py-4 rounded-lg hover:opacity-90 transition-opacity"
