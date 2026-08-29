@@ -40,6 +40,9 @@ class HandleInertiaRequests extends Middleware
                 "endereco"          => Setting::get("endereco", ""),
                 "endereco_2_titulo" => Setting::get("endereco_2_titulo", "Loja 2"),
                 "endereco_2"        => Setting::get("endereco_2", ""),
+                "anos_mercado"      => Setting::get("anos_mercado", "12"),
+                "carros_vendidos"   => Setting::get("carros_vendidos", "+500"),
+                "avaliacao_google"  => Setting::get("avaliacao_google", "4,9"),
             ],
         ];
     }

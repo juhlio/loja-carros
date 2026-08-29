@@ -13,6 +13,9 @@ export default function Welcome({ destaques = [] }) {
     const telefone = siteCfg?.telefone ?? "";
     const whatsapp = siteCfg?.whatsapp ?? "";
     const email    = siteCfg?.email ?? "";
+    const anosMercado    = siteCfg?.anos_mercado ?? "12";
+    const carrosVendidos = siteCfg?.carros_vendidos ?? "+500";
+    const avaliacaoGoogle = siteCfg?.avaliacao_google ?? "4,9";
 
     return (
         <Layout>
@@ -57,9 +60,9 @@ export default function Welcome({ destaques = [] }) {
 
                         <div className="flex gap-10">
                             {[
-                                { value: "+500",   label: "carros vendidos" },
-                                { value: "12 anos", label: "no mercado" },
-                                { value: "4,9★",   label: "avaliação Google" },
+                                { value: carrosVendidos, label: "carros vendidos" },
+                                { value: `${anosMercado} anos`, label: "no mercado" },
+                                { value: `${avaliacaoGoogle}★`, label: "avaliação Google" },
                             ].map(({ value, label }) => (
                                 <div key={label}>
                                     <div className="font-archivo font-black text-3xl">{value}</div>
