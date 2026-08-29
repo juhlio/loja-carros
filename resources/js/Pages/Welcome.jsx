@@ -16,6 +16,10 @@ export default function Welcome({ destaques = [] }) {
     const anosMercado    = siteCfg?.anos_mercado ?? "12";
     const carrosVendidos = siteCfg?.carros_vendidos ?? "+500";
     const avaliacaoGoogle = siteCfg?.avaliacao_google ?? "4,9";
+    const nomeLoja = siteCfg?.nome_loja || "Loja de Carros";
+    const sobreTitulo = siteCfg?.sobre_titulo || "Quem somos";
+    const sobreTexto = siteCfg?.sobre_texto ||
+        `Com mais de ${anosMercado} anos no mercado de veículos, a ${nomeLoja} é sinônimo de confiança, qualidade e atendimento excepcional. Cada carro que oferecemos é cuidadosamente selecionado e passa por uma revisão completa.\n\nNossa missão é simples: conectar você com o carro dos seus sonhos da forma mais transparente e segura possível. Não há enrolação, apenas profissionalismo e comprometimento com sua satisfação.`;
 
     return (
         <Layout>
@@ -49,8 +53,8 @@ export default function Welcome({ destaques = [] }) {
                                 Ver estoque
                             </Link>
                             <a
-                                href="https://wa.me/5548999999999"
-                                target="_blank"
+                                href={whatsapp ? `https://wa.me/${whatsapp}` : "#contato"}
+                                target={whatsapp ? "_blank" : "_self"}
                                 rel="noopener noreferrer"
                                 className="border border-white/[0.18] text-dark-50 font-bold px-7 py-4 rounded-full text-base hover:border-accent hover:text-accent transition-colors"
                             >
@@ -184,14 +188,13 @@ export default function Welcome({ destaques = [] }) {
 
             {/* About */}
             <section id="sobre" className="bg-dark-900 border-t border-b border-white/[0.06] px-[6vw] py-[8vw]">
-                <h2 className="font-archivo font-black text-[clamp(30px,3.6vw,50px)] mb-8 leading-tight">Quem somos</h2>
+                <h2 className="font-archivo font-black text-[clamp(30px,3.6vw,50px)] mb-8 leading-tight">{sobreTitulo}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <p className="text-dark-100 leading-relaxed text-lg">
-                        Com mais de 12 anos no mercado de veículos, a Loja de Carros é sinônimo de confiança, qualidade e atendimento excepcional. Cada carro que oferecemos é cuidadosamente selecionado e passa por uma revisão completa.
-                    </p>
-                    <p className="text-dark-100 leading-relaxed text-lg">
-                        Nossa missão é simples: conectar você com o carro dos seus sonhos da forma mais transparente e segura possível. Não há enrolação, apenas profissionalismo e comprometimento com sua satisfação.
-                    </p>
+                    {sobreTexto.split(/\n{2,}/).map((paragrafo, i) => (
+                        <p key={i} className="text-dark-100 leading-relaxed text-lg">
+                            {paragrafo}
+                        </p>
+                    ))}
                 </div>
             </section>
 

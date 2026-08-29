@@ -43,6 +43,8 @@ class HandleInertiaRequests extends Middleware
                 "anos_mercado"      => Setting::get("anos_mercado", "12"),
                 "carros_vendidos"   => Setting::get("carros_vendidos", "+500"),
                 "avaliacao_google"  => Setting::get("avaliacao_google", "4,9"),
+                "sobre_titulo"      => Setting::get("sobre_titulo", "Quem somos"),
+                "sobre_texto"       => Setting::get("sobre_texto", ""),
             ],
         ];
     }

@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
 
 export default function DetalheCarro({ carro }) {
+    const { siteCfg } = usePage().props;
+    const whatsapp = siteCfg?.whatsapp ?? "";
+    const mensagem = encodeURIComponent(`Olá! Tenho interesse em agendar um test drive do ${carro.marca} ${carro.modelo} ${carro.ano}.`);
+    const linkWhatsapp = whatsapp ? `https://wa.me/${whatsapp}?text=${mensagem}` : "#contato";
     const [imagemAtual, setImagemAtual] = useState(
         carro.imagens && carro.imagens.length > 0 ? carro.imagens[0] : null
     );
@@ -66,8 +70,8 @@ export default function DetalheCarro({ carro }) {
 
                             <div className="flex flex-col gap-3">
                                 <a
-                                    href="https://wa.me/5549991698515"
-                                    target="_blank"
+                                    href={linkWhatsapp}
+                                    target={whatsapp ? "_blank" : "_self"}
                                     rel="noopener noreferrer"
                                     className="w-full block text-center bg-accent text-dark-950 font-bold py-4 rounded-lg hover:opacity-90 transition-opacity"
                                 >
@@ -144,8 +148,8 @@ export default function DetalheCarro({ carro }) {
                     </p>
                     <div className="flex gap-4 justify-center flex-wrap">
                         <a
-                            href="https://wa.me/5549991698515"
-                            target="_blank"
+                            href={linkWhatsapp}
+                            target={whatsapp ? "_blank" : "_self"}
                             rel="noopener noreferrer"
                             className="bg-accent text-dark-950 font-bold px-8 py-4 rounded-lg hover:opacity-90 transition-opacity"
                         >

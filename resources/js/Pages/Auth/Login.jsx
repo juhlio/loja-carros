@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Head, router, usePage } from "@inertiajs/react";
 
 export default function Login() {
-    const { errors } = usePage().props;
+    const { errors, siteCfg } = usePage().props;
+    const nomeLoja = siteCfg?.nome_loja || "Loja de Carros";
     const [form, setForm] = useState({ email: "", password: "" });
     const [loading, setLoading] = useState(false);
 
@@ -31,7 +32,7 @@ export default function Login() {
                             </svg>
                         </div>
                         <h1 className="font-archivo font-black text-2xl">Painel Admin</h1>
-                        <p className="text-dark-400 text-sm mt-1">Loja de Carros</p>
+                        <p className="text-dark-400 text-sm mt-1">{nomeLoja}</p>
                     </div>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>

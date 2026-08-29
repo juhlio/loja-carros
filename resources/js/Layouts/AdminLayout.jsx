@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 
 export default function AdminLayout({ children }) {
-    const { adminAtual, flash } = usePage().props;
+    const { adminAtual, flash, siteCfg } = usePage().props;
+    const nomeLoja = siteCfg?.nome_loja || "Loja de Carros";
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -13,7 +14,7 @@ export default function AdminLayout({ children }) {
                         <span className="font-bold text-xl text-accent font-archivo">LC</span>
                         <div>
                             <div className="font-bold text-sm">PAINEL ADMIN</div>
-                            <div className="text-xs text-dark-400">Loja de Carros</div>
+                            <div className="text-xs text-dark-400">{nomeLoja}</div>
                         </div>
                     </Link>
 
