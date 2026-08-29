@@ -14,6 +14,7 @@ export default function Welcome({ destaques = [] }) {
     ].filter(e => e.endereco);
     const telefone = siteCfg?.telefone ?? "";
     const whatsapp = siteCfg?.whatsapp ?? "";
+    const telefoneContato = telefone || whatsapp;
     const email    = siteCfg?.email ?? "";
     const anosMercado    = siteCfg?.anos_mercado ?? "12";
     const carrosVendidos = siteCfg?.carros_vendidos ?? "+500";
@@ -142,8 +143,8 @@ export default function Welcome({ destaques = [] }) {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {destaques.map((carro, i) => (
-                            <CarCard key={carro.id} carro={carro} badge={i === 0 ? "Destaque" : "Disponível"} />
+                        {destaques.map((carro) => (
+                            <CarCard key={carro.id} carro={carro} badge={carro.destaque ? "Destaque" : "Disponível"} />
                         ))}
                     </div>
                 )}
@@ -221,10 +222,10 @@ export default function Welcome({ destaques = [] }) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {telefone && (
-                            <a href={`tel:${telefone.replace(/\D/g, "")}`} className="bg-dark-950 border border-white/[0.07] rounded-2xl p-6 hover:border-accent/50 transition-colors">
+                        {telefoneContato && (
+                            <a href={`tel:${telefoneContato.replace(/\D/g, "")}`} className="bg-dark-950 border border-white/[0.07] rounded-2xl p-6 hover:border-accent/50 transition-colors">
                                 <div className="text-xs font-bold uppercase text-dark-400 mb-2">Telefone</div>
-                                <div className="text-lg font-semibold">{formatPhoneBR(telefone)}</div>
+                                <div className="text-lg font-semibold">{formatPhoneBR(telefoneContato)}</div>
                             </a>
                         )}
                         {whatsapp && (
@@ -244,7 +245,7 @@ export default function Welcome({ destaques = [] }) {
                                 <div className="text-lg font-semibold break-all">{email}</div>
                             </a>
                         )}
-                        {!telefone && !whatsapp && !email && (
+                        {!telefoneContato && !whatsapp && !email && (
                             <p className="text-dark-300 sm:col-span-2">Nenhuma informação de contato cadastrada ainda.</p>
                         )}
                     </div>
