@@ -2,6 +2,7 @@ import { Link, Head, usePage } from "@inertiajs/react";
 import Layout from "../Layouts/Layout";
 import CarCard from "../Components/CarCard";
 import { formatPhoneBR } from "../lib/phone";
+import { titleCaseVeiculo, formatPreco, formatCombustivel } from "../lib/text";
 
 export default function Welcome({ destaques = [] }) {
     const destaqueHero = destaques[0];
@@ -88,7 +89,7 @@ export default function Welcome({ destaques = [] }) {
                             {destaqueHero.imagens?.length > 0 ? (
                                 <img
                                     src={`/storage/${destaqueHero.imagens[0]}`}
-                                    alt={`${destaqueHero.marca} ${destaqueHero.modelo}`}
+                                    alt={`${titleCaseVeiculo(destaqueHero.marca)} ${titleCaseVeiculo(destaqueHero.modelo)}`}
                                     className="w-full h-full object-cover"
                                 />
                             ) : (
@@ -102,13 +103,13 @@ export default function Welcome({ destaques = [] }) {
                                     Destaque
                                 </span>
                                 <h3 className="font-archivo font-black text-2xl text-dark-50">
-                                    {destaqueHero.marca} {destaqueHero.modelo}
+                                    {titleCaseVeiculo(destaqueHero.marca)} {titleCaseVeiculo(destaqueHero.modelo)}
                                 </h3>
                                 <p className="text-dark-200 text-sm mt-1">
-                                    {destaqueHero.ano} • {Number(destaqueHero.km).toLocaleString("pt-BR")} KM • {destaqueHero.combustivel}
+                                    {destaqueHero.ano} • {Number(destaqueHero.km).toLocaleString("pt-BR")} KM • {formatCombustivel(destaqueHero.combustivel)}
                                 </p>
                                 <p className="font-archivo font-black text-xl text-accent mt-2">
-                                    R$ {parseFloat(destaqueHero.preco).toLocaleString("pt-BR", { minimumFractionDigits: 0 })}
+                                    R$ {formatPreco(destaqueHero.preco)}
                                 </p>
                             </div>
                         </Link>

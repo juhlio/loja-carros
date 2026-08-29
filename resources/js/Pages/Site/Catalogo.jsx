@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Head } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
 import CarCard from "../../Components/CarCard";
+import { titleCaseVeiculo } from "../../lib/text";
 
 export default function Catalogo({ carros = [] }) {
     const [filtro, setFiltro] = useState("todos");
@@ -25,13 +26,13 @@ export default function Catalogo({ carros = [] }) {
                         <button
                             key={item}
                             onClick={() => setFiltro(item)}
-                            className={`px-5 py-2.5 rounded-full font-bold text-sm transition-colors capitalize ${
+                            className={`px-5 py-2.5 rounded-full font-bold text-sm transition-colors ${
                                 filtro === item
                                     ? "bg-accent text-dark-950"
                                     : "bg-dark-900 text-dark-50 border border-white/[0.12] hover:border-accent hover:text-accent"
                             }`}
                         >
-                            {item === "todos" ? "Todos" : item}
+                            {item === "todos" ? "Todos" : titleCaseVeiculo(item)}
                         </button>
                     ))}
                 </div>
