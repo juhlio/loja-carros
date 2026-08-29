@@ -16,11 +16,13 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
+        // Completa com carros ativos recentes até formar uma fileira cheia de 3,
+        // sem cortar destaques marcados explicitamente pelo admin.
         if ($destaques->count() < 3) {
             $extras = Carro::where('ativo', true)
                 ->whereNotIn('id', $destaques->pluck('id'))
                 ->orderBy('created_at', 'desc')
-                ->take(4 - $destaques->count())
+                ->take(3 - $destaques->count())
                 ->get();
 
             $destaques = $destaques->concat($extras);
