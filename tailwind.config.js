@@ -20,7 +20,11 @@ export default {
           900: "#111317",
           950: "#0b0c0e",
         },
-        accent: "#ffed00",
+        accent: {
+          DEFAULT: "#ffed00",
+          soft: "#e8dd8a",
+        },
+        surface: "#1a1c21",
       },
       fontFamily: {
         archivo: ["Archivo", "sans-serif"],

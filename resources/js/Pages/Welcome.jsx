@@ -1,5 +1,7 @@
 import { Link, Head, usePage } from "@inertiajs/react";
 import Layout from "../Layouts/Layout";
+import CarCard from "../Components/CarCard";
+import { formatPhoneBR } from "../lib/phone";
 
 export default function Welcome({ destaques = [] }) {
     const destaqueHero = destaques[0];
@@ -130,7 +132,7 @@ export default function Welcome({ destaques = [] }) {
             {/* Catalog Preview */}
             <section id="catalogo" className="px-[6vw] py-[8vw]">
                 <div className="mb-12">
-                    <div className="text-xs font-bold tracking-widest uppercase text-accent mb-3">Destaques do estoque</div>
+                    <div className="text-xs font-bold tracking-widest uppercase text-accent-soft mb-3">Destaques do estoque</div>
                     <h2 className="font-archivo font-black text-[clamp(30px,3.6vw,50px)] leading-tight">Carros em destaque</h2>
                 </div>
 
@@ -141,40 +143,7 @@ export default function Welcome({ destaques = [] }) {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {destaques.map((carro, i) => (
-                            <Link key={carro.id} href={carro.url} className="group">
-                                <article className="bg-dark-900 border border-white/[0.07] rounded-2xl overflow-hidden flex flex-col hover:border-accent/50 transition-colors">
-                                    <div className="bg-stripe aspect-video relative flex items-center justify-center overflow-hidden group-hover:opacity-80 transition-opacity">
-                                        {carro.imagens && carro.imagens.length > 0 ? (
-                                            <img
-                                                src={`/storage/${carro.imagens[0]}`}
-                                                alt={`${carro.marca} ${carro.modelo}`}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        ) : (
-                                            <span className="font-mono text-xs text-dark-400">[ {carro.modelo} ]</span>
-                                        )}
-                                        <span className="absolute top-3 left-3 bg-accent text-dark-950 text-xs font-black uppercase px-2.5 py-1 rounded">
-                                            {i === 0 ? "Destaque" : "Disponível"}
-                                        </span>
-                                    </div>
-                                    <div className="p-5 flex flex-col gap-3 flex-1">
-                                        <div>
-                                            <div className="flex justify-between items-baseline gap-2">
-                                                <h3 className="font-archivo font-black text-xl">{carro.marca} {carro.modelo}</h3>
-                                                <span className="text-xs text-dark-300 font-semibold">{carro.ano}</span>
-                                            </div>
-                                            <div className="text-sm text-dark-300 mt-1">
-                                                {Number(carro.km).toLocaleString("pt-BR")} KM • {carro.combustivel}
-                                            </div>
-                                        </div>
-                                        <div className="border-t border-white/[0.06] pt-3 mt-auto">
-                                            <div className="font-archivo font-black text-2xl text-accent">
-                                                R$ {parseFloat(carro.preco).toLocaleString("pt-BR", { minimumFractionDigits: 0 })}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </Link>
+                            <CarCard key={carro.id} carro={carro} badge={i === 0 ? "Destaque" : "Disponível"} />
                         ))}
                     </div>
                 )}
@@ -201,19 +170,19 @@ export default function Welcome({ destaques = [] }) {
             {/* Localizacao */}
             <section id="local" className="px-[6vw] py-[8vw]">
                 <div className="mb-12">
-                    <div className="text-xs font-bold tracking-widest uppercase text-accent mb-3">Venha nos visitar</div>
+                    <div className="text-xs font-bold tracking-widest uppercase text-accent-soft mb-3">Venha nos visitar</div>
                     <h2 className="font-archivo font-black text-[clamp(30px,3.6vw,50px)] leading-tight">Onde estamos</h2>
                 </div>
 
                 {enderecos.length === 0 ? (
-                    <div className="rounded-2xl border border-white/[0.07] bg-dark-900 aspect-video flex items-center justify-center">
+                    <div className="rounded-2xl border border-white/[0.07] bg-surface aspect-video flex items-center justify-center">
                         <span className="font-mono text-xs text-dark-400">[ nenhum endereco cadastrado ]</span>
                     </div>
                 ) : (
                     <div className={`grid grid-cols-1 ${enderecos.length > 1 ? "lg:grid-cols-2" : ""} gap-8`}>
                         {enderecos.map(({ titulo, endereco: end }, i) => (
                             <div key={i} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <div className="sm:col-span-2 rounded-2xl overflow-hidden border border-white/[0.07] aspect-video bg-dark-900">
+                                <div className="sm:col-span-2 rounded-2xl overflow-hidden border border-white/[0.07] aspect-video bg-surface">
                                     <iframe
                                         title={`Mapa ${titulo}`}
                                         src={`https://www.google.com/maps?q=${encodeURIComponent(end)}&output=embed`}
@@ -223,7 +192,7 @@ export default function Welcome({ destaques = [] }) {
                                     />
                                 </div>
 
-                                <div className="bg-dark-900 border border-white/[0.07] rounded-2xl p-6 flex flex-col justify-center gap-4">
+                                <div className="bg-surface border border-white/[0.07] rounded-2xl p-6 flex flex-col justify-center gap-4">
                                     <div>
                                         <div className="text-xs font-bold uppercase text-dark-400 mb-2">{titulo}</div>
                                         <p className="text-base font-semibold">{end}</p>
@@ -246,7 +215,7 @@ export default function Welcome({ destaques = [] }) {
             {/* Contato */}
             <section id="contato" className="bg-dark-900 border-t border-white/[0.06] px-[6vw] py-[8vw]">
                 <div className="mb-12">
-                    <div className="text-xs font-bold tracking-widest uppercase text-accent mb-3">Fale com a gente</div>
+                    <div className="text-xs font-bold tracking-widest uppercase text-accent-soft mb-3">Fale com a gente</div>
                     <h2 className="font-archivo font-black text-[clamp(30px,3.6vw,50px)] leading-tight">Contato</h2>
                 </div>
 
@@ -255,7 +224,7 @@ export default function Welcome({ destaques = [] }) {
                         {telefone && (
                             <a href={`tel:${telefone.replace(/\D/g, "")}`} className="bg-dark-950 border border-white/[0.07] rounded-2xl p-6 hover:border-accent/50 transition-colors">
                                 <div className="text-xs font-bold uppercase text-dark-400 mb-2">Telefone</div>
-                                <div className="text-lg font-semibold">{telefone}</div>
+                                <div className="text-lg font-semibold">{formatPhoneBR(telefone)}</div>
                             </a>
                         )}
                         {whatsapp && (
@@ -266,7 +235,7 @@ export default function Welcome({ destaques = [] }) {
                                 className="bg-dark-950 border border-white/[0.07] rounded-2xl p-6 hover:border-accent/50 transition-colors"
                             >
                                 <div className="text-xs font-bold uppercase text-dark-400 mb-2">WhatsApp</div>
-                                <div className="text-lg font-semibold">{whatsapp}</div>
+                                <div className="text-lg font-semibold">{formatPhoneBR(whatsapp)}</div>
                             </a>
                         )}
                         {email && (

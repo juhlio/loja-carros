@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
+import CarCard from "../../Components/CarCard";
 
 export default function Catalogo({ carros = [] }) {
     const [filtro, setFiltro] = useState("todos");
@@ -14,7 +15,7 @@ export default function Catalogo({ carros = [] }) {
 
             <section className="px-[6vw] py-[8vw]">
                 <div className="mb-12">
-                    <div className="text-xs font-bold tracking-widest uppercase text-accent mb-3">Estoque completo</div>
+                    <div className="text-xs font-bold tracking-widest uppercase text-accent-soft mb-3">Estoque completo</div>
                     <h1 className="font-archivo font-black text-[clamp(40px,5.2vw,74px)] leading-tight">Nossos carros</h1>
                 </div>
 
@@ -42,38 +43,7 @@ export default function Catalogo({ carros = [] }) {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filteredCarros.map(carro => (
-                            <Link key={carro.id} href={carro.url} className="group">
-                                <article className="bg-dark-900 border border-white/[0.07] rounded-2xl overflow-hidden flex flex-col hover:border-accent/50 transition-colors">
-                                    <div className="bg-stripe aspect-video relative flex items-center justify-center overflow-hidden group-hover:opacity-80 transition-opacity">
-                                        {carro.imagens && carro.imagens.length > 0 ? (
-                                            <img
-                                                src={`/storage/${carro.imagens[0]}`}
-                                                alt={`${carro.marca} ${carro.modelo}`}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        ) : (
-                                            <span className="font-mono text-xs text-dark-400">[ {carro.modelo} ]</span>
-                                        )}
-                                    </div>
-                                    <div className="p-5 flex flex-col gap-3 flex-1">
-                                        <div>
-                                            <div className="flex justify-between items-baseline gap-2">
-                                                <h3 className="font-archivo font-black text-xl">{carro.marca} {carro.modelo}</h3>
-                                                <span className="text-xs text-dark-300 font-semibold">{carro.ano}</span>
-                                            </div>
-                                            <div className="text-sm text-dark-300 mt-1">
-                                                {Number(carro.km).toLocaleString("pt-BR")} KM • {carro.combustivel}
-                                            </div>
-                                        </div>
-                                        <div className="border-t border-white/[0.06] pt-3 mt-auto flex items-center justify-between">
-                                            <div className="font-archivo font-black text-2xl text-accent">
-                                                R$ {parseFloat(carro.preco).toLocaleString("pt-BR", { minimumFractionDigits: 0 })}
-                                            </div>
-                                            <span className="text-xs text-dark-300 border border-white/[0.10] px-2.5 py-1 rounded-full">{carro.cor}</span>
-                                        </div>
-                                    </div>
-                                </article>
-                            </Link>
+                            <CarCard key={carro.id} carro={carro} showCor />
                         ))}
                     </div>
                 )}

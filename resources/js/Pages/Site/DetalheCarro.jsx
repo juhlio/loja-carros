@@ -25,7 +25,7 @@ export default function DetalheCarro({ carro }) {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                     <div className="lg:col-span-2">
-                        <div className="rounded-2xl aspect-video flex items-center justify-center mb-6 border border-white/[0.07] overflow-hidden bg-dark-900">
+                        <div className="rounded-2xl aspect-video flex items-center justify-center mb-6 border border-white/[0.07] overflow-hidden bg-surface">
                             {imagemAtual ? (
                                 <img src={`/storage/${imagemAtual}`} alt={`${carro.marca} ${carro.modelo}`} className="w-full h-full object-cover" />
                             ) : (
@@ -51,7 +51,7 @@ export default function DetalheCarro({ carro }) {
                     </div>
 
                     <div className="flex flex-col gap-6">
-                        <div className="bg-dark-900 border border-white/[0.07] rounded-2xl p-6">
+                        <div className="bg-surface border border-white/[0.07] rounded-2xl p-6">
                             <div className="mb-6">
                                 <div className="text-xs font-bold tracking-widest uppercase text-dark-300 mb-2">{carro.ano}</div>
                                 <h1 className="font-archivo font-black text-3xl">{carro.marca}</h1>
@@ -83,7 +83,7 @@ export default function DetalheCarro({ carro }) {
                             </div>
                         </div>
 
-                        <div className="bg-dark-900 border border-white/[0.07] rounded-2xl p-6">
+                        <div className="bg-surface border border-white/[0.07] rounded-2xl p-6">
                             <h3 className="font-archivo font-black text-lg mb-4">Informacoes</h3>
                             <dl className="space-y-0">
                                 {[
@@ -112,7 +112,7 @@ export default function DetalheCarro({ carro }) {
             {carro.descricao && (
                 <section className="px-[6vw] pb-[4vw] border-t border-white/[0.06] pt-[4vw]">
                     <h2 className="font-archivo font-black text-2xl mb-6">Sobre este carro</h2>
-                    <div className="bg-dark-900 border border-white/[0.07] rounded-2xl p-8 max-w-3xl">
+                    <div className="bg-surface border border-white/[0.07] rounded-2xl p-8 max-w-3xl">
                         <p className="text-dark-100 text-lg leading-relaxed">{carro.descricao}</p>
                     </div>
                 </section>
@@ -127,7 +127,7 @@ export default function DetalheCarro({ carro }) {
                         { icon: "shield",title: "Garantia",      desc: "Protecao total contra defeitos ocultos" },
                         { icon: "money", title: "Financiamento", desc: "Opcoes de pagamento facilitadas" },
                     ].map(({ title, desc }) => (
-                        <div key={title} className="bg-dark-900 border border-white/[0.07] rounded-2xl p-6">
+                        <div key={title} className="bg-surface border border-white/[0.07] rounded-2xl p-6">
                             <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center mb-3">
                                 <div className="w-2 h-2 rounded-full bg-accent" />
                             </div>
