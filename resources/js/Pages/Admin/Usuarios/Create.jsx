@@ -23,11 +23,11 @@ export default function Create() {
 
     return (
         <AdminLayout>
-            <Head title="Novo Usuario" />
+            <Head title="Novo Usuário" />
             <div className="max-w-2xl">
                 <div className="mb-8">
                     <a href="/admin/usuarios" className="text-xs font-bold uppercase text-dark-400 hover:text-accent transition-colors">&larr; Voltar</a>
-                    <h1 className="font-archivo font-black text-3xl mt-3">Novo Usuario</h1>
+                    <h1 className="font-archivo font-black text-3xl mt-3">Novo Usuário</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className="bg-dark-900 border border-white/[0.07] rounded-2xl p-8 space-y-6">
@@ -44,7 +44,7 @@ export default function Create() {
                         <input type="password" name="password" value={form.password} onChange={set} required className={inputCls} placeholder="min. 6 caracteres" />
                     </div>
                     <div>
-                        <label className={labelCls}>Funcao *</label>
+                        <label className={labelCls}>Função *</label>
                         <select name="role" value={form.role} onChange={set} className={inputCls}>
                             {adminAtual?.role === "super_admin" && (
                                 <>
@@ -57,7 +57,7 @@ export default function Create() {
                     </div>
                     <div className="flex gap-4 pt-2">
                         <button type="submit" disabled={loading} className="flex-1 bg-accent text-dark-950 font-bold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50">
-                            {loading ? "Criando..." : "Criar Usuario"}
+                            {loading ? "Criando..." : "Criar Usuário"}
                         </button>
                         <a href="/admin/usuarios" className="flex-1 text-center bg-dark-800 text-dark-50 font-bold py-3 rounded-lg border border-white/[0.07] hover:border-accent transition-colors">
                             Cancelar

@@ -74,7 +74,7 @@ export default function Perfil() {
                     </div>
 
                     <button type="submit" disabled={loading} className="w-full bg-accent text-dark-950 font-bold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50">
-                        {loading ? "Salvando..." : "Salvar Alteracoes"}
+                        {loading ? "Salvando..." : "Salvar Alterações"}
                     </button>
                 </form>
             </div>

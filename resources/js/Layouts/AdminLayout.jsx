@@ -24,12 +24,12 @@ export default function AdminLayout({ children }) {
                         </Link>
                         {adminAtual?.role !== "vendedor" && (
                             <Link href="/admin/usuarios" className="font-semibold text-sm hover:text-accent transition-colors">
-                                Usuarios
+                                Usuários
                             </Link>
                         )}
                         {adminAtual?.role === "super_admin" && (
                             <Link href="/admin/configuracoes" className="font-semibold text-sm hover:text-accent transition-colors">
-                                Configuracoes
+                                Configurações
                             </Link>
                         )}
                         <Link href="/" className="font-semibold text-sm text-dark-300 hover:text-accent transition-colors">
@@ -67,10 +67,10 @@ export default function AdminLayout({ children }) {
                     <div className="md:hidden border-t border-white/[0.06] px-[6vw] py-4 space-y-3">
                         <Link href="/admin/carros" className="block font-semibold text-sm hover:text-accent transition-colors">Carros</Link>
                         {adminAtual?.role !== "vendedor" && (
-                            <Link href="/admin/usuarios" className="block font-semibold text-sm hover:text-accent transition-colors">Usuarios</Link>
+                            <Link href="/admin/usuarios" className="block font-semibold text-sm hover:text-accent transition-colors">Usuários</Link>
                         )}
                         {adminAtual?.role === "super_admin" && (
-                            <Link href="/admin/configuracoes" className="block font-semibold text-sm hover:text-accent transition-colors">Configuracoes</Link>
+                            <Link href="/admin/configuracoes" className="block font-semibold text-sm hover:text-accent transition-colors">Configurações</Link>
                         )}
                         <Link href="/admin/perfil" className="block font-semibold text-sm hover:text-accent transition-colors">Meu Perfil</Link>
                         <Link href="/" className="block font-semibold text-sm text-dark-300 hover:text-accent transition-colors">Ver Site</Link>

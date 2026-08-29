@@ -176,7 +176,7 @@ export default function Welcome({ destaques = [] }) {
 
                 {enderecos.length === 0 ? (
                     <div className="rounded-2xl border border-white/[0.07] bg-surface aspect-video flex items-center justify-center">
-                        <span className="font-mono text-xs text-dark-400">[ nenhum endereco cadastrado ]</span>
+                        <span className="font-mono text-xs text-dark-400">[ nenhum endereço cadastrado ]</span>
                     </div>
                 ) : (
                     <div className={`grid grid-cols-1 ${enderecos.length > 1 ? "lg:grid-cols-2" : ""} gap-8`}>
@@ -245,7 +245,7 @@ export default function Welcome({ destaques = [] }) {
                             </a>
                         )}
                         {!telefone && !whatsapp && !email && (
-                            <p className="text-dark-300 sm:col-span-2">Nenhuma informacao de contato cadastrada ainda.</p>
+                            <p className="text-dark-300 sm:col-span-2">Nenhuma informação de contato cadastrada ainda.</p>
                         )}
                     </div>
 

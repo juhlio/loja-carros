@@ -71,7 +71,7 @@ export default function Create() {
                             <input type="number" name="ano" value={form.ano} onChange={set} required className={inputCls} />
                         </div>
                         <div>
-                            <label className={labelCls}>Preco (R$) *</label>
+                            <label className={labelCls}>Preço (R$) *</label>
                             <input type="number" name="preco" value={form.preco} onChange={set} step="0.01" required className={inputCls} placeholder="Ex: 95000" />
                         </div>
                     </div>
@@ -82,12 +82,12 @@ export default function Create() {
                             <input type="text" name="cor" value={form.cor} onChange={set} required className={inputCls} placeholder="Ex: Prata" />
                         </div>
                         <div>
-                            <label className={labelCls}>Combustivel *</label>
+                            <label className={labelCls}>Combustível *</label>
                             <select name="combustivel" value={form.combustivel} onChange={set} className={inputCls}>
                                 <option value="gasolina">Gasolina</option>
                                 <option value="diesel">Diesel</option>
-                                <option value="eletrico">Eletrico</option>
-                                <option value="hibrido">Hibrido</option>
+                                <option value="eletrico">Elétrico</option>
+                                <option value="hibrido">Híbrido</option>
                             </select>
                         </div>
                     </div>
@@ -104,8 +104,8 @@ export default function Create() {
                     </div>
 
                     <div>
-                        <label className={labelCls}>Descricao</label>
-                        <textarea name="descricao" value={form.descricao} onChange={set} rows="4" className={inputCls} placeholder="Descreva o estado do veiculo, opcionais, historico..." />
+                        <label className={labelCls}>Descrição</label>
+                        <textarea name="descricao" value={form.descricao} onChange={set} rows="4" className={inputCls} placeholder="Descreva o estado do veículo, opcionais, histórico..." />
                     </div>
 
                     <div>

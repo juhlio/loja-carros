@@ -60,11 +60,11 @@ export default function Configuracoes({ settings }) {
 
     return (
         <AdminLayout>
-            <Head title="Configuracoes do Site" />
+            <Head title="Configurações do Site" />
             <div className="max-w-3xl">
                 <div className="mb-8">
-                    <h1 className="font-archivo font-black text-4xl mb-1">Configuracoes</h1>
-                    <p className="text-dark-300 text-sm">Personalize informacoes e aparencia da loja</p>
+                    <h1 className="font-archivo font-black text-4xl mb-1">Configurações</h1>
+                    <p className="text-dark-300 text-sm">Personalize informações e aparência da loja</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -99,8 +99,8 @@ export default function Configuracoes({ settings }) {
                             <input type="text" name="nome_loja" value={form.nome_loja} onChange={set} required className={inputCls} placeholder="Ex: Loja de Carros Premium" />
                         </div>
                         <div>
-                            <label className={labelCls}>Descricao Breve</label>
-                            <input type="text" name="descricao" value={form.descricao ?? ""} onChange={set} className={inputCls} placeholder="Sua melhor escolha em veiculos" />
+                            <label className={labelCls}>Descrição Breve</label>
+                            <input type="text" name="descricao" value={form.descricao ?? ""} onChange={set} className={inputCls} placeholder="Sua melhor escolha em veículos" />
                         </div>
                     </Section>
 
@@ -120,28 +120,28 @@ export default function Configuracoes({ settings }) {
                             <input type="email" name="email" value={form.email ?? ""} onChange={set} className={inputCls} placeholder="contato@loja.com" />
                         </div>
                         <div>
-                            <label className={labelCls}>Endereco (loja 1)</label>
+                            <label className={labelCls}>Endereço (loja 1)</label>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <input type="text" name="endereco_titulo" value={form.endereco_titulo ?? ""} onChange={set} className={inputCls} placeholder="Titulo, ex: Loja Centro" />
+                                <input type="text" name="endereco_titulo" value={form.endereco_titulo ?? ""} onChange={set} className={inputCls} placeholder="Título, ex: Loja Centro" />
                                 <div className="sm:col-span-2">
-                                    <input type="text" name="endereco" value={form.endereco ?? ""} onChange={set} className={inputCls} placeholder="Rua Exemplo, 123 - Chapeco, SC" />
+                                    <input type="text" name="endereco" value={form.endereco ?? ""} onChange={set} className={inputCls} placeholder="Rua Exemplo, 123 - Chapecó, SC" />
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <label className={labelCls}>Endereco (loja 2)</label>
+                            <label className={labelCls}>Endereço (loja 2)</label>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <input type="text" name="endereco_2_titulo" value={form.endereco_2_titulo ?? ""} onChange={set} className={inputCls} placeholder="Titulo, ex: Loja Bairro" />
+                                <input type="text" name="endereco_2_titulo" value={form.endereco_2_titulo ?? ""} onChange={set} className={inputCls} placeholder="Título, ex: Loja Bairro" />
                                 <div className="sm:col-span-2">
-                                    <input type="text" name="endereco_2" value={form.endereco_2 ?? ""} onChange={set} className={inputCls} placeholder="Av. Exemplo, 456 - Chapeco, SC" />
+                                    <input type="text" name="endereco_2" value={form.endereco_2 ?? ""} onChange={set} className={inputCls} placeholder="Av. Exemplo, 456 - Chapecó, SC" />
                                 </div>
                             </div>
                         </div>
                     </Section>
 
-                    <Section title="Secao Sobre">
+                    <Section title="Seção Sobre">
                         <div>
-                            <label className={labelCls}>Titulo</label>
+                            <label className={labelCls}>Título</label>
                             <input type="text" name="sobre_titulo" value={form.sobre_titulo ?? ""} onChange={set} className={inputCls} placeholder="Quem somos" />
                         </div>
                         <div>
@@ -150,7 +150,7 @@ export default function Configuracoes({ settings }) {
                         </div>
                     </Section>
 
-                    <Section title="Estatisticas da Home">
+                    <Section title="Estatísticas da Home">
                         <div className="grid grid-cols-3 gap-4">
                             <div>
                                 <label className={labelCls}>Carros Vendidos</label>
@@ -161,7 +161,7 @@ export default function Configuracoes({ settings }) {
                                 <input type="text" name="anos_mercado" value={form.anos_mercado ?? ""} onChange={set} className={inputCls} placeholder="12" />
                             </div>
                             <div>
-                                <label className={labelCls}>Avaliacao Google</label>
+                                <label className={labelCls}>Avaliação Google</label>
                                 <input type="text" name="avaliacao_google" value={form.avaliacao_google ?? ""} onChange={set} className={inputCls} placeholder="4,9" />
                             </div>
                         </div>
@@ -172,7 +172,7 @@ export default function Configuracoes({ settings }) {
                         disabled={loading}
                         className="w-full bg-accent text-dark-950 font-bold py-4 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
                     >
-                        {loading ? "Salvando..." : "Salvar Configuracoes"}
+                        {loading ? "Salvando..." : "Salvar Configurações"}
                     </button>
                 </form>
             </div>

@@ -22,16 +22,16 @@ export default function Index({ usuarios }) {
 
     return (
         <AdminLayout>
-            <Head title="Usuarios" />
+            <Head title="Usuários" />
 
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
                 <div>
-                    <h1 className="font-archivo font-black text-4xl mb-1">Usuarios</h1>
+                    <h1 className="font-archivo font-black text-4xl mb-1">Usuários</h1>
                     <p className="text-dark-300 text-sm">{usuarios.length} cadastrados</p>
                 </div>
                 {adminAtual?.role !== "vendedor" && (
                     <Link href="/admin/usuarios/create" className="inline-block bg-accent text-dark-950 font-bold px-6 py-3 rounded-lg hover:opacity-90 transition text-center whitespace-nowrap">
-                        + Novo Usuario
+                        + Novo Usuário
                     </Link>
                 )}
             </div>
@@ -58,11 +58,11 @@ export default function Index({ usuarios }) {
                         <table className="w-full">
                             <thead>
                                 <tr className="border-b border-white/[0.06] bg-dark-800">
-                                    <th className="px-6 py-4 text-left text-xs font-bold uppercase text-dark-400">Usuario</th>
+                                    <th className="px-6 py-4 text-left text-xs font-bold uppercase text-dark-400">Usuário</th>
                                     <th className="px-6 py-4 text-left text-xs font-bold uppercase text-dark-400">Email</th>
-                                    <th className="px-6 py-4 text-left text-xs font-bold uppercase text-dark-400">Funcao</th>
+                                    <th className="px-6 py-4 text-left text-xs font-bold uppercase text-dark-400">Função</th>
                                     <th className="px-6 py-4 text-left text-xs font-bold uppercase text-dark-400">Status</th>
-                                    <th className="px-6 py-4 text-center text-xs font-bold uppercase text-dark-400">Acoes</th>
+                                    <th className="px-6 py-4 text-center text-xs font-bold uppercase text-dark-400">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,7 +70,7 @@ export default function Index({ usuarios }) {
                                     <tr key={u.id} className="border-b border-white/[0.06] hover:bg-dark-800/50 transition-colors last:border-0">
                                         <td className="px-6 py-4">
                                             <div className="font-semibold">{u.nome}</div>
-                                            {u.id === adminAtual?.id && <div className="text-xs text-accent mt-0.5">(voce)</div>}
+                                            {u.id === adminAtual?.id && <div className="text-xs text-accent mt-0.5">(você)</div>}
                                         </td>
                                         <td className="px-6 py-4 text-sm text-dark-200">{u.email}</td>
                                         <td className="px-6 py-4">
@@ -101,7 +101,7 @@ export default function Index({ usuarios }) {
                         </table>
                     </div>
                 ) : (
-                    <div className="px-6 py-16 text-center text-dark-400">Nenhum usuario encontrado</div>
+                    <div className="px-6 py-16 text-center text-dark-400">Nenhum usuário encontrado</div>
                 )}
             </div>
         </AdminLayout>

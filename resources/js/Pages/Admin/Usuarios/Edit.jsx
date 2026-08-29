@@ -52,7 +52,7 @@ export default function Edit({ usuario }) {
                         <input type="password" name="password" value={form.password} onChange={set} className={inputCls} placeholder="min. 6 caracteres" />
                     </div>
                     <div>
-                        <label className={labelCls}>Funcao *</label>
+                        <label className={labelCls}>Função *</label>
                         <select name="role" value={form.role} onChange={set} className={inputCls}>
                             {adminAtual?.role === "super_admin" && (
                                 <>
@@ -71,12 +71,12 @@ export default function Edit({ usuario }) {
                                 onChange={(e) => setForm(prev => ({ ...prev, ativo: e.target.checked }))}
                                 className="w-4 h-4 accent-[#ffed00]"
                             />
-                            <span className="text-sm font-semibold">Usuario ativo</span>
+                            <span className="text-sm font-semibold">Usuário ativo</span>
                         </label>
                     </div>
                     <div className="flex gap-4 pt-2">
                         <button type="submit" disabled={loading} className="flex-1 bg-accent text-dark-950 font-bold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50">
-                            {loading ? "Salvando..." : "Salvar Alteracoes"}
+                            {loading ? "Salvando..." : "Salvar Alterações"}
                         </button>
                         <a href="/admin/usuarios" className="flex-1 text-center bg-dark-800 text-dark-50 font-bold py-3 rounded-lg border border-white/[0.07] hover:border-accent transition-colors">
                             Cancelar

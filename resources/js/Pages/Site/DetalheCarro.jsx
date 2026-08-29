@@ -17,7 +17,7 @@ export default function DetalheCarro({ carro }) {
 
             <div className="px-[6vw] py-6 border-b border-white/[0.06]">
                 <Link href="/catalogo" className="text-accent hover:opacity-80 transition-opacity font-semibold">
-                    &larr; Voltar ao Catalogo
+                    &larr; Voltar ao Catálogo
                 </Link>
             </div>
 
@@ -62,7 +62,7 @@ export default function DetalheCarro({ carro }) {
                             </div>
 
                             <div className="border-t border-white/[0.06] pt-6 mb-6">
-                                <div className="text-sm text-dark-300 mb-1">Preco</div>
+                                <div className="text-sm text-dark-300 mb-1">Preço</div>
                                 <div className="font-archivo font-black text-4xl text-accent">
                                     R$ {parseFloat(carro.preco).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                                 </div>
@@ -78,20 +78,20 @@ export default function DetalheCarro({ carro }) {
                                     Agendar Test Drive
                                 </a>
                                 <button className="w-full bg-dark-800 text-accent font-bold py-4 rounded-lg border border-accent hover:bg-accent hover:text-dark-950 transition-colors">
-                                    Solicitar Informacoes
+                                    Solicitar Informações
                                 </button>
                             </div>
                         </div>
 
                         <div className="bg-surface border border-white/[0.07] rounded-2xl p-6">
-                            <h3 className="font-archivo font-black text-lg mb-4">Informacoes</h3>
+                            <h3 className="font-archivo font-black text-lg mb-4">Informações</h3>
                             <dl className="space-y-0">
                                 {[
                                     { label: "Marca",         value: carro.marca },
                                     { label: "Modelo",        value: carro.modelo },
                                     { label: "Ano",           value: carro.ano },
                                     { label: "Cor",           value: carro.cor },
-                                    { label: "Combustivel",   value: carro.combustivel },
+                                    { label: "Combustível",   value: carro.combustivel },
                                     { label: "Quilometragem", value: `${Number(carro.km).toLocaleString("pt-BR")} KM` },
                                     { label: "Placa",         value: carro.placa, mono: true },
                                 ].map(({ label, value, mono }, idx, arr) => (
@@ -122,10 +122,10 @@ export default function DetalheCarro({ carro }) {
                 <h2 className="font-archivo font-black text-2xl mb-10">Por que escolher este carro</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {[
-                        { icon: "check", title: "Procedencia",   desc: "Historico completo e documentacao em dia" },
-                        { icon: "tool",  title: "Revisado",      desc: "Completa inspecao e manutencao realizada" },
-                        { icon: "shield",title: "Garantia",      desc: "Protecao total contra defeitos ocultos" },
-                        { icon: "money", title: "Financiamento", desc: "Opcoes de pagamento facilitadas" },
+                        { icon: "check", title: "Procedência",   desc: "Histórico completo e documentação em dia" },
+                        { icon: "tool",  title: "Revisado",      desc: "Completa inspeção e manutenção realizada" },
+                        { icon: "shield",title: "Garantia",      desc: "Proteção total contra defeitos ocultos" },
+                        { icon: "money", title: "Financiamento", desc: "Opções de pagamento facilitadas" },
                     ].map(({ title, desc }) => (
                         <div key={title} className="bg-surface border border-white/[0.07] rounded-2xl p-6">
                             <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center mb-3">
