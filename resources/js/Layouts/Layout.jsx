@@ -18,9 +18,9 @@ export default function Layout({ children }) {
                 </Link>
 
                 <nav className="hidden md:flex items-center gap-[34px] text-sm font-semibold">
-                    <Link href="/catalogo" className="hover:text-accent transition-colors">Catalogo</Link>
+                    <Link href="/catalogo" className="hover:text-accent transition-colors">Catálogo</Link>
                     <a href="/#sobre"   className="hover:text-accent transition-colors">Sobre</a>
-                    <a href="/#local"   className="hover:text-accent transition-colors">Localizacao</a>
+                    <a href="/#local"   className="hover:text-accent transition-colors">Localização</a>
                     <a href="/#contato" className="hover:text-accent transition-colors">Contato</a>
                 </nav>
 
