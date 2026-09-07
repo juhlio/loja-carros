@@ -44,7 +44,7 @@ export default function DetalheCarro({ carro }) {
                                     src={`/storage/${imagemAtual}`}
                                     alt={`${marca} ${modelo}`}
                                     loading="eager"
-                                    fetchpriority="high"
+                                    fetchPriority="high"
                                     className="w-full h-full object-cover"
                                 />
                             ) : (

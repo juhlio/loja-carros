@@ -16,11 +16,26 @@ services:
       - DB_DATABASE=loja_carros
       - DB_USERNAME=root
       - DB_PASSWORD=root
+      - INERTIA_SSR_URL=http://ssr:13714
     depends_on:
       - mysql
+      - ssr
     networks:
       - loja-carros
     command: php-fpm
+
+  ssr:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: loja-carros-ssr
+    working_dir: /app
+    volumes:
+      - .:/app
+    networks:
+      - loja-carros
+    command: node bootstrap/ssr/ssr.js
+    restart: unless-stopped
 
   mysql:
     image: mysql:8.0

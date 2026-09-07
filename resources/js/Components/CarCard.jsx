@@ -13,7 +13,7 @@ export default function CarCard({ carro, badge, showCor = false, priority = fals
                             src={`/storage/${carro.imagens[0]}`}
                             alt={`${marca} ${modelo}`}
                             loading={priority ? "eager" : "lazy"}
-                            {...(priority ? { fetchpriority: "high" } : {})}
+                            {...(priority ? { fetchPriority: "high" } : {})}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                     ) : (

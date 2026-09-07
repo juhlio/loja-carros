@@ -91,7 +91,7 @@ export default function Welcome({ destaques = [] }) {
                                     src={`/storage/${destaqueHero.imagens[0]}`}
                                     alt={`${titleCaseVeiculo(destaqueHero.marca)} ${titleCaseVeiculo(destaqueHero.modelo)}`}
                                     loading="eager"
-                                    fetchpriority="high"
+                                    fetchPriority="high"
                                     className="w-full h-full object-cover"
                                 />
                             ) : (
