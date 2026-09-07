@@ -44,11 +44,14 @@ export default function Catalogo({ carros = [] }) {
                         <p className="text-lg">Nenhum carro disponível no momento.</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {filteredCarros.map(carro => (
-                            <CarCard key={carro.id} carro={carro} showCor />
-                        ))}
-                    </div>
+                    <>
+                        <h2 className="sr-only">{filteredCarros.length} veículos em estoque</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {filteredCarros.map((carro, index) => (
+                                <CarCard key={carro.id} carro={carro} showCor priority={index < 3} />
+                            ))}
+                        </div>
+                    </>
                 )}
             </section>
         </Layout>

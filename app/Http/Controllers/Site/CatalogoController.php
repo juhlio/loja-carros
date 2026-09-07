@@ -15,12 +15,50 @@ class CatalogoController extends Controller
         $carros = Carro::where("ativo", true)->orderBy("created_at", "desc")->get();
         $nomeLoja = Setting::get('nome_loja', 'Loja de Carros');
 
+        $breadcrumb = [
+            "@type" => "BreadcrumbList",
+            "itemListElement" => [
+                ["@type" => "ListItem", "position" => 1, "name" => "Início", "item" => url("/")],
+                ["@type" => "ListItem", "position" => 2, "name" => "Catálogo", "item" => url("/catalogo")],
+            ],
+        ];
+
+        $itemList = [
+            "@type" => "ItemList",
+            "itemListElement" => $carros->values()->map(function (Carro $carro, int $index) {
+                $marca = TextFormat::tituloVeiculo($carro->marca);
+                $modelo = TextFormat::tituloVeiculo($carro->modelo);
+                $imagem = $carro->imagens[0] ?? null;
+
+                return array_filter([
+                    "@type" => "ListItem",
+                    "position" => $index + 1,
+                    "url" => url($carro->url),
+                    "item" => array_filter([
+                        "@type" => "Car",
+                        "name" => trim("{$marca} {$modelo} {$carro->ano}"),
+                        "url" => url($carro->url),
+                        "image" => $imagem ? asset("storage/{$imagem}") : null,
+                        "offers" => [
+                            "@type" => "Offer",
+                            "priceCurrency" => "BRL",
+                            "price" => (string) $carro->preco,
+                        ],
+                    ]),
+                ]);
+            })->all(),
+        ];
+
         return Inertia::render("Site/Catalogo", [
             "carros" => $carros,
             "seo" => [
                 "title" => "Catálogo de Seminovos — {$nomeLoja} | Chapecó, SC",
                 "description" => "Confira nosso estoque de seminovos em Chapecó, SC. Estoque atualizado, procedência garantida e financiamento facilitado. Fale conosco no WhatsApp.",
                 "type" => "website",
+                "jsonLd" => [
+                    "@context" => "https://schema.org",
+                    "@graph" => [$breadcrumb, $itemList],
+                ],
             ],
         ]);
     }
@@ -42,6 +80,38 @@ class CatalogoController extends Controller
         $imagemUrl = $imagem ? asset("storage/{$imagem}") : null;
         $km = number_format((float) $carro->km, 0, ',', '.');
 
+        $breadcrumb = [
+            "@type" => "BreadcrumbList",
+            "itemListElement" => [
+                ["@type" => "ListItem", "position" => 1, "name" => "Início", "item" => url("/")],
+                ["@type" => "ListItem", "position" => 2, "name" => "Catálogo", "item" => url("/catalogo")],
+                ["@type" => "ListItem", "position" => 3, "name" => $nomeCompleto, "item" => url($carro->url)],
+            ],
+        ];
+
+        $carSchema = array_filter([
+            "@type" => "Car",
+            "name" => $nomeCompleto,
+            "brand" => ["@type" => "Brand", "name" => $marca],
+            "model" => $modelo,
+            "vehicleModelDate" => (string) $carro->ano,
+            "mileageFromOdometer" => [
+                "@type" => "QuantitativeValue",
+                "value" => (int) $carro->km,
+                "unitCode" => "KMT",
+            ],
+            "color" => $cor,
+            "fuelType" => $carro->combustivel,
+            "image" => $imagemUrl,
+            "offers" => [
+                "@type" => "Offer",
+                "priceCurrency" => "BRL",
+                "price" => (string) $carro->preco,
+                "availability" => "https://schema.org/InStock",
+                "url" => url($carro->url),
+            ],
+        ]);
+
         return Inertia::render("Site/DetalheCarro", [
             "carro" => $carro,
             "seo" => [
@@ -49,29 +119,10 @@ class CatalogoController extends Controller
                 "description" => "{$nomeCompleto}, {$km} km, " . ucfirst((string) $carro->combustivel) . ". Confira preço, fotos e agende um test drive na {$nomeLoja}, em Chapecó, SC.",
                 "image" => $imagemUrl,
                 "type" => "product",
-                "jsonLd" => array_filter([
+                "jsonLd" => [
                     "@context" => "https://schema.org",
-                    "@type" => "Car",
-                    "name" => $nomeCompleto,
-                    "brand" => ["@type" => "Brand", "name" => $marca],
-                    "model" => $modelo,
-                    "vehicleModelDate" => (string) $carro->ano,
-                    "mileageFromOdometer" => [
-                        "@type" => "QuantitativeValue",
-                        "value" => (int) $carro->km,
-                        "unitCode" => "KMT",
-                    ],
-                    "color" => $cor,
-                    "fuelType" => $carro->combustivel,
-                    "image" => $imagemUrl,
-                    "offers" => [
-                        "@type" => "Offer",
-                        "priceCurrency" => "BRL",
-                        "price" => (string) $carro->preco,
-                        "availability" => "https://schema.org/InStock",
-                        "url" => url($carro->url),
-                    ],
-                ]),
+                    "@graph" => [$breadcrumb, $carSchema],
+                ],
             ],
         ]);
     }

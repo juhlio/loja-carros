@@ -90,6 +90,8 @@ export default function Welcome({ destaques = [] }) {
                                 <img
                                     src={`/storage/${destaqueHero.imagens[0]}`}
                                     alt={`${titleCaseVeiculo(destaqueHero.marca)} ${titleCaseVeiculo(destaqueHero.modelo)}`}
+                                    loading="eager"
+                                    fetchpriority="high"
                                     className="w-full h-full object-cover"
                                 />
                             ) : (

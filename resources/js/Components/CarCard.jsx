@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import { titleCaseVeiculo, formatPreco, formatCombustivel } from "../lib/text";
 
-export default function CarCard({ carro, badge, showCor = false }) {
+export default function CarCard({ carro, badge, showCor = false, priority = false }) {
     const marca = titleCaseVeiculo(carro.marca);
     const modelo = titleCaseVeiculo(carro.modelo);
     return (
@@ -12,7 +12,8 @@ export default function CarCard({ carro, badge, showCor = false }) {
                         <img
                             src={`/storage/${carro.imagens[0]}`}
                             alt={`${marca} ${modelo}`}
-                            loading="lazy"
+                            loading={priority ? "eager" : "lazy"}
+                            {...(priority ? { fetchpriority: "high" } : {})}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                     ) : (

@@ -40,7 +40,13 @@ export default function DetalheCarro({ carro }) {
                     <div className="lg:col-span-2">
                         <div className="rounded-2xl aspect-video flex items-center justify-center mb-6 border border-white/[0.07] overflow-hidden bg-surface">
                             {imagemAtual ? (
-                                <img src={`/storage/${imagemAtual}`} alt={`${marca} ${modelo}`} className="w-full h-full object-cover" />
+                                <img
+                                    src={`/storage/${imagemAtual}`}
+                                    alt={`${marca} ${modelo}`}
+                                    loading="eager"
+                                    fetchpriority="high"
+                                    className="w-full h-full object-cover"
+                                />
                             ) : (
                                 <span className="font-mono text-sm text-dark-400">[ foto do {marca} {modelo} ]</span>
                             )}

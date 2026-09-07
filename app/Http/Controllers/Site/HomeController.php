@@ -34,28 +34,36 @@ class HomeController extends Controller
         $telefone = Setting::get('telefone', '') ?: Setting::get('whatsapp', '');
         $endereco = Setting::get('endereco', '');
 
+        $fotoDestaque = $destaques->first(fn ($carro) => !empty($carro->imagens))?->imagens[0] ?? null;
+        $ogImage = $fotoDestaque ? asset("storage/{$fotoDestaque}") : ($logo ? asset("storage/{$logo}") : null);
+
         return Inertia::render('Welcome', [
             'destaques' => $destaques,
             'seo' => [
                 'title' => "{$nomeLoja} — Seminovos em Chapecó, SC",
                 'description' => "Compre seu carro seminovo em Chapecó, SC com procedência garantida. Estoque selecionado, financiamento facilitado e atendimento direto pelo WhatsApp.",
-                'image' => $logo ? asset("storage/{$logo}") : null,
+                'image' => $ogImage,
                 'type' => 'website',
-                'jsonLd' => array_filter([
+                'jsonLd' => [
                     '@context' => 'https://schema.org',
-                    '@type' => 'AutoDealer',
-                    'name' => $nomeLoja,
-                    'image' => $logo ? asset("storage/{$logo}") : null,
-                    'url' => url('/'),
-                    'telephone' => $telefone ?: null,
-                    'address' => $endereco ? [
-                        '@type' => 'PostalAddress',
-                        'streetAddress' => $endereco,
-                        'addressLocality' => 'Chapecó',
-                        'addressRegion' => 'SC',
-                        'addressCountry' => 'BR',
-                    ] : null,
-                ]),
+                    '@graph' => [
+                        array_filter([
+                            '@type' => 'AutoDealer',
+                            'name' => $nomeLoja,
+                            'image' => $ogImage,
+                            'url' => url('/'),
+                            'telephone' => $telefone ?: null,
+                            'priceRange' => '$$',
+                            'address' => $endereco ? [
+                                '@type' => 'PostalAddress',
+                                'streetAddress' => $endereco,
+                                'addressLocality' => 'Chapecó',
+                                'addressRegion' => 'SC',
+                                'addressCountry' => 'BR',
+                            ] : null,
+                        ]),
+                    ],
+                ],
             ],
         ]);
     }
