@@ -28,7 +28,7 @@ class LlmsController extends Controller
         ];
 
         if ($endereco) {
-            $linhas[] = "- Endereço: {$endereco}, Chapecó, SC.";
+            $linhas[] = "- Endereço: {$endereco}.";
         }
         if ($telefone) {
             $linhas[] = "- Contato: {$telefone}.";
