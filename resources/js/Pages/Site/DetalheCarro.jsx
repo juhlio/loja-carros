@@ -73,7 +73,7 @@ export default function DetalheCarro({ carro }) {
                             <div className="mb-6">
                                 <div className="text-xs font-bold tracking-widest uppercase text-dark-300 mb-2">{carro.ano}</div>
                                 <h1 className="font-archivo font-black text-3xl mb-3">
-                                    {marca} <span className="text-accent">{modelo}</span>
+                                    {marca} <span className="text-accent">{modelo}</span> {carro.ano}
                                 </h1>
                                 <p className="text-dark-300 text-sm">
                                     {Number(carro.km).toLocaleString("pt-BR")} KM &bull; {formatCombustivel(carro.combustivel)} &bull; {titleCaseVeiculo(carro.cor)}
