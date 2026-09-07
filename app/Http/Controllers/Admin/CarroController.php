@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Carro;
+use App\Support\IndexNow;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -45,7 +46,9 @@ class CarroController extends Controller
         $validated['imagens'] = $imagens;
         $validated['destaque'] = $request->boolean('destaque');
 
-        Carro::create($validated);
+        $carro = Carro::create($validated);
+
+        IndexNow::submit([url($carro->url), url('/catalogo'), url('/sitemap.xml')]);
 
         return redirect()->route('admin.carros.index')->with('message', 'Carro adicionado com sucesso!');
     }
@@ -87,17 +90,23 @@ class CarroController extends Controller
 
         $carro->update($validated);
 
+        IndexNow::submit([url($carro->url), url('/catalogo')]);
+
         return redirect()->route('admin.carros.index')->with('message', 'Carro atualizado com sucesso!');
     }
 
     public function destroy(Carro $carro)
     {
+        $url = url($carro->url);
+
         if ($carro->imagens) {
             foreach ($carro->imagens as $imagem) {
                 Storage::disk('public')->delete($imagem);
             }
         }
         $carro->delete();
+
+        IndexNow::submit([$url, url('/catalogo'), url('/sitemap.xml')]);
 
         return redirect()->route('admin.carros.index')->with('message', 'Carro deletado com sucesso!');
     }
