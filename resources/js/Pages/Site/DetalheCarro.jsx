@@ -3,6 +3,7 @@ import { Head, Link, usePage } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
 import InfoIcon from "../../Components/InfoIcon";
 import { titleCaseVeiculo, formatPreco, formatDescricao, maskPlaca, formatCombustivel } from "../../lib/text";
+import { thumbPath } from "../../lib/image";
 
 export default function DetalheCarro({ carro }) {
     const { siteCfg } = usePage().props;
@@ -45,6 +46,8 @@ export default function DetalheCarro({ carro }) {
                                     alt={`${marca} ${modelo}`}
                                     loading="eager"
                                     fetchPriority="high"
+                                    width={1200}
+                                    height={675}
                                     className="w-full h-full object-cover"
                                 />
                             ) : (
@@ -63,9 +66,11 @@ export default function DetalheCarro({ carro }) {
                                         }`}
                                     >
                                         <img
-                                            src={`/storage/${img}`}
+                                            src={`/storage/${thumbPath(img)}`}
                                             alt={`${marca} ${modelo} - foto ${i + 1}`}
                                             loading="lazy"
+                                            width={400}
+                                            height={200}
                                             className="w-full h-20 object-cover"
                                         />
                                     </button>

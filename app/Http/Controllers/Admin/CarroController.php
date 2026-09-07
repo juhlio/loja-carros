@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Carro;
+use App\Support\ImagePipeline;
 use App\Support\IndexNow;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class CarroController extends Controller
 {
@@ -40,7 +40,7 @@ class CarroController extends Controller
         $imagens = [];
         if ($request->hasFile('imagens')) {
             foreach ($request->file('imagens') as $file) {
-                $imagens[] = $file->store('carros', 'public');
+                $imagens[] = ImagePipeline::processUpload($file);
             }
         }
         $validated['imagens'] = $imagens;
@@ -77,11 +77,11 @@ class CarroController extends Controller
 
         if ($request->hasFile('imagens')) {
             foreach ($imagens as $imagem) {
-                Storage::disk('public')->delete($imagem);
+                ImagePipeline::delete($imagem);
             }
             $imagens = [];
             foreach ($request->file('imagens') as $file) {
-                $imagens[] = $file->store('carros', 'public');
+                $imagens[] = ImagePipeline::processUpload($file);
             }
         }
         $validated['imagens'] = $imagens;
@@ -101,7 +101,7 @@ class CarroController extends Controller
 
         if ($carro->imagens) {
             foreach ($carro->imagens as $imagem) {
-                Storage::disk('public')->delete($imagem);
+                ImagePipeline::delete($imagem);
             }
         }
         $carro->delete();

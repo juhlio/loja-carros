@@ -92,6 +92,8 @@ export default function Welcome({ destaques = [] }) {
                                     alt={`${titleCaseVeiculo(destaqueHero.marca)} ${titleCaseVeiculo(destaqueHero.modelo)}`}
                                     loading="eager"
                                     fetchPriority="high"
+                                    width={1200}
+                                    height={675}
                                     className="w-full h-full object-cover"
                                 />
                             ) : (

@@ -14,6 +14,8 @@ export default function CarCard({ carro, badge, showCor = false, priority = fals
                             alt={`${marca} ${modelo}`}
                             loading={priority ? "eager" : "lazy"}
                             {...(priority ? { fetchPriority: "high" } : {})}
+                            width={1200}
+                            height={675}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                     ) : (
