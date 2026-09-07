@@ -27,7 +27,7 @@ export default function Welcome({ destaques = [] }) {
 
     return (
         <Layout>
-            <Head title="O carro certo, sem enrolação" />
+            <Head title={`${nomeLoja} — Seminovos em Chapecó, SC`} />
 
             {/* Hero */}
             <section className="relative px-[6vw] py-[9vw] overflow-hidden">

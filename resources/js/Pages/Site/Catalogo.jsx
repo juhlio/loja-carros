@@ -1,23 +1,25 @@
 import { useState } from "react";
-import { Head } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
 import CarCard from "../../Components/CarCard";
 import { titleCaseVeiculo } from "../../lib/text";
 
 export default function Catalogo({ carros = [] }) {
     const [filtro, setFiltro] = useState("todos");
+    const { siteCfg } = usePage().props;
+    const nomeLoja = siteCfg?.nome_loja || "Loja de Carros";
 
     const marcas = [...new Set(carros.map(c => c.marca))];
     const filteredCarros = filtro === "todos" ? carros : carros.filter(c => c.marca === filtro);
 
     return (
         <Layout>
-            <Head title="Catálogo de Carros" />
+            <Head title={`Catálogo de Seminovos — ${nomeLoja} | Chapecó, SC`} />
 
             <section className="px-[6vw] py-[8vw]">
                 <div className="mb-12">
                     <div className="text-xs font-bold tracking-widest uppercase text-accent-soft mb-3">Estoque completo</div>
-                    <h1 className="font-archivo font-black text-[clamp(40px,5.2vw,74px)] leading-tight">Nossos carros</h1>
+                    <h1 className="font-archivo font-black text-[clamp(40px,5.2vw,74px)] leading-tight">Seminovos e Usados em Chapecó, SC</h1>
                 </div>
 
                 {/* Filtros */}

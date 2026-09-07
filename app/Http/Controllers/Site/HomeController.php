@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Carro;
+use App\Models\Setting;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -28,6 +29,34 @@ class HomeController extends Controller
             $destaques = $destaques->concat($extras);
         }
 
-        return Inertia::render('Welcome', ['destaques' => $destaques]);
+        $nomeLoja = Setting::get('nome_loja', 'Loja de Carros');
+        $logo     = Setting::get('logo');
+        $telefone = Setting::get('telefone', '') ?: Setting::get('whatsapp', '');
+        $endereco = Setting::get('endereco', '');
+
+        return Inertia::render('Welcome', [
+            'destaques' => $destaques,
+            'seo' => [
+                'title' => "{$nomeLoja} — Seminovos em Chapecó, SC",
+                'description' => "Compre seu carro seminovo em Chapecó, SC com procedência garantida. Estoque selecionado, financiamento facilitado e atendimento direto pelo WhatsApp.",
+                'image' => $logo ? asset("storage/{$logo}") : null,
+                'type' => 'website',
+                'jsonLd' => array_filter([
+                    '@context' => 'https://schema.org',
+                    '@type' => 'AutoDealer',
+                    'name' => $nomeLoja,
+                    'image' => $logo ? asset("storage/{$logo}") : null,
+                    'url' => url('/'),
+                    'telephone' => $telefone ?: null,
+                    'address' => $endereco ? [
+                        '@type' => 'PostalAddress',
+                        'streetAddress' => $endereco,
+                        'addressLocality' => 'Chapecó',
+                        'addressRegion' => 'SC',
+                        'addressCountry' => 'BR',
+                    ] : null,
+                ]),
+            ],
+        ]);
     }
 }

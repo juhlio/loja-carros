@@ -12,6 +12,7 @@ export default function CarCard({ carro, badge, showCor = false }) {
                         <img
                             src={`/storage/${carro.imagens[0]}`}
                             alt={`${marca} ${modelo}`}
+                            loading="lazy"
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                     ) : (

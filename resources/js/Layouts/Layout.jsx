@@ -66,6 +66,12 @@ export default function Layout({ children }) {
             <main>{children}</main>
 
             <footer className="border-t border-white/[0.06] mt-24 py-12 px-[6vw] text-center text-dark-300 text-sm">
+                <nav aria-label="Rodapé" className="flex items-center justify-center gap-6 mb-6 flex-wrap font-semibold">
+                    <Link href="/catalogo" className="hover:text-accent transition-colors">Catálogo</Link>
+                    <a href="/#sobre" className="hover:text-accent transition-colors">Sobre</a>
+                    <a href="/#local" className="hover:text-accent transition-colors">Localização</a>
+                    <a href="/#contato" className="hover:text-accent transition-colors">Contato</a>
+                </nav>
                 <p>&copy; {new Date().getFullYear()} {nomeLoja}. Todos os direitos reservados.</p>
             </footer>
         </div>

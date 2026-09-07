@@ -7,6 +7,7 @@ import { titleCaseVeiculo, formatPreco, formatDescricao, maskPlaca, formatCombus
 export default function DetalheCarro({ carro }) {
     const { siteCfg } = usePage().props;
     const whatsapp = siteCfg?.whatsapp ?? "";
+    const nomeLoja = siteCfg?.nome_loja || "Loja de Carros";
     const marca = titleCaseVeiculo(carro.marca);
     const modelo = titleCaseVeiculo(carro.modelo);
     const nomeCompleto = `${marca} ${modelo} ${carro.ano}`;
@@ -21,13 +22,17 @@ export default function DetalheCarro({ carro }) {
 
     return (
         <Layout>
-            <Head title={nomeCompleto} />
+            <Head title={`${nomeCompleto} — ${nomeLoja} | Chapecó, SC`} />
 
-            <div className="px-[6vw] py-6 border-b border-white/[0.06]">
-                <Link href="/catalogo" className="text-accent hover:opacity-80 transition-opacity font-semibold">
-                    &larr; Voltar ao Catálogo
-                </Link>
-            </div>
+            <nav aria-label="Breadcrumb" className="px-[6vw] py-6 border-b border-white/[0.06]">
+                <ol className="flex items-center gap-2 text-sm text-dark-300 flex-wrap">
+                    <li><Link href="/" className="hover:text-accent transition-colors">Início</Link></li>
+                    <li aria-hidden="true">/</li>
+                    <li><Link href="/catalogo" className="hover:text-accent transition-colors">Catálogo</Link></li>
+                    <li aria-hidden="true">/</li>
+                    <li aria-current="page" className="text-dark-50 font-semibold">{marca} {modelo}</li>
+                </ol>
+            </nav>
 
             <section className="px-[6vw] py-[8vw]">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -51,7 +56,12 @@ export default function DetalheCarro({ carro }) {
                                             imagemAtual === img ? "border-accent" : "border-white/[0.07] hover:border-accent"
                                         }`}
                                     >
-                                        <img src={`/storage/${img}`} alt={`thumb-${i}`} className="w-full h-20 object-cover" />
+                                        <img
+                                            src={`/storage/${img}`}
+                                            alt={`${marca} ${modelo} - foto ${i + 1}`}
+                                            loading="lazy"
+                                            className="w-full h-20 object-cover"
+                                        />
                                     </button>
                                 ))}
                             </div>
@@ -62,8 +72,9 @@ export default function DetalheCarro({ carro }) {
                         <div className="bg-surface border border-white/[0.07] rounded-2xl p-6">
                             <div className="mb-6">
                                 <div className="text-xs font-bold tracking-widest uppercase text-dark-300 mb-2">{carro.ano}</div>
-                                <h1 className="font-archivo font-black text-3xl">{marca}</h1>
-                                <h2 className="font-archivo font-black text-3xl text-accent mb-3">{modelo}</h2>
+                                <h1 className="font-archivo font-black text-3xl mb-3">
+                                    {marca} <span className="text-accent">{modelo}</span>
+                                </h1>
                                 <p className="text-dark-300 text-sm">
                                     {Number(carro.km).toLocaleString("pt-BR")} KM &bull; {formatCombustivel(carro.combustivel)} &bull; {titleCaseVeiculo(carro.cor)}
                                 </p>

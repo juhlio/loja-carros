@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\CatalogoController;
 use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Auth\AuthController;
 
 Route::get("/", [HomeController::class, "index"]);
 Route::get("/catalogo",   [CatalogoController::class, "index"]);
 Route::get("/carro/{id}", [CatalogoController::class, "show"])->where("id", "[0-9]+(-.*)?");
+Route::get("/sitemap.xml", [SitemapController::class, "index"]);
 
 Route::get("/login",  [AuthController::class, "showLogin"])->name("login");
 Route::post("/login", [AuthController::class, "login"])->middleware("throttle:5,1");
