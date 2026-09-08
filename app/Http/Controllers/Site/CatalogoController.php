@@ -14,6 +14,8 @@ class CatalogoController extends Controller
     {
         $carros = Carro::where("ativo", true)->orderBy("created_at", "desc")->get();
         $nomeLoja = Setting::get('nome_loja', 'Loja de Carros');
+        $fotoDestaque = $carros->first(fn ($carro) => !empty($carro->imagens))?->imagens[0] ?? null;
+        $ogImage = $fotoDestaque ? asset("storage/{$fotoDestaque}") : null;
 
         $breadcrumb = [
             "@type" => "BreadcrumbList",
@@ -54,6 +56,7 @@ class CatalogoController extends Controller
             "seo" => [
                 "title" => "Catálogo de Seminovos — {$nomeLoja} | Chapecó, SC",
                 "description" => "Confira nosso estoque de seminovos em Chapecó, SC. Estoque atualizado, procedência garantida e financiamento facilitado. Fale conosco no WhatsApp.",
+                "image" => $ogImage,
                 "type" => "website",
                 "jsonLd" => [
                     "@context" => "https://schema.org",

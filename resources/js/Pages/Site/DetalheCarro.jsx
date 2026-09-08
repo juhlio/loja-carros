@@ -68,7 +68,7 @@ export default function DetalheCarro({ carro }) {
                                         <img
                                             src={`/storage/${thumbPath(img)}`}
                                             alt={`${marca} ${modelo} - foto ${i + 1}`}
-                                            loading="lazy"
+                                            loading="eager"
                                             width={400}
                                             height={200}
                                             className="w-full h-20 object-cover"
