@@ -4,7 +4,10 @@
     $seoDescription = $seo['description'] ?? 'Compre seu carro seminovo com procedência garantida e atendimento direto pelo WhatsApp.';
     $seoImage = $seo['image'] ?? asset('android-chrome-512x512.png');
     $seoType = $seo['type'] ?? 'website';
-    $canonical = url()->current();
+    // Canonical fixo no domínio oficial (APP_URL), em vez de auto-referencial
+    // (url()->current()), para não deixar www/non-www ou http/https cada um
+    // se declarando como a própria página canônica perante o Google.
+    $canonical = rtrim(config('app.url'), '/') . '/' . ltrim(request()->path(), '/');
     $isNoIndex = request()->routeIs('admin.*') || request()->routeIs('login');
 @endphp
 <!DOCTYPE html>

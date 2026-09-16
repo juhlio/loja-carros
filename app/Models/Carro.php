@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\TextFormat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -34,7 +35,12 @@ class Carro extends Model
 
     public function getSlugAttribute(): string
     {
-        return Str::slug("{$this->marca}-{$this->modelo}-{$this->ano}");
+        // Remove a marca duplicada do modelo (ex: modelo cadastrado como
+        // "Ford Ka" com marca "Ford") para não gerar URLs como
+        // /carro/51-ford-ford-ka-2020.
+        $modelo = TextFormat::tituloModelo($this->marca, $this->modelo);
+
+        return Str::slug("{$this->marca}-{$modelo}-{$this->ano}");
     }
 
     public function getUrlAttribute(): string
