@@ -72,6 +72,12 @@ export default function DetalheCarro({ carro }) {
                                             width={400}
                                             height={200}
                                             className="w-full h-20 object-cover"
+                                            onError={e => {
+                                                const fallback = `/storage/${img}`;
+                                                if (e.currentTarget.src !== window.location.origin + fallback) {
+                                                    e.currentTarget.src = fallback;
+                                                }
+                                            }}
                                         />
                                     </button>
                                 ))}

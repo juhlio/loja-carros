@@ -79,4 +79,27 @@ class ImagePipeline
     {
         Storage::disk('public')->delete([$mainPath, self::thumbPath($mainPath)]);
     }
+
+    /**
+     * Gera a thumbnail a partir da imagem principal quando ela ainda não
+     * existe (fotos enviadas antes do pipeline de thumbnails existir).
+     * Retorna true se uma thumbnail foi gerada.
+     */
+    public static function backfillThumb(string $mainPath): bool
+    {
+        $thumbPath = self::thumbPath($mainPath);
+
+        if (Storage::disk('public')->exists($thumbPath) || !Storage::disk('public')->exists($mainPath)) {
+            return false;
+        }
+
+        $manager = new ImageManager(new Driver());
+        $thumb = $manager->read(Storage::disk('public')->get($mainPath))
+            ->cover(self::THUMB_WIDTH, self::THUMB_HEIGHT)
+            ->toWebp(78);
+
+        Storage::disk('public')->put($thumbPath, (string) $thumb);
+
+        return true;
+    }
 }
