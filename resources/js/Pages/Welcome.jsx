@@ -1,8 +1,9 @@
 import { Link, Head, usePage } from "@inertiajs/react";
 import Layout from "../Layouts/Layout";
 import CarCard from "../Components/CarCard";
+import MapaEmbed from "../Components/MapaEmbed";
 import { formatPhoneBR } from "../lib/phone";
-import { titleCaseVeiculo, formatPreco, formatCombustivel } from "../lib/text";
+import { titleCaseVeiculo, tituloModelo, formatPreco, formatCombustivel } from "../lib/text";
 
 export default function Welcome({ destaques = [] }) {
     const destaqueHero = destaques[0];
@@ -40,7 +41,7 @@ export default function Welcome({ destaques = [] }) {
                     <div className="animate-floatIn">
                         <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-accent mb-6">
                             <span className="w-[26px] h-px bg-accent" />
-                            Seminovos • 0km • Premium
+                            Seminovos • Premium
                         </div>
 
                         <h1 className="font-archivo font-black text-[clamp(40px,5.2vw,74px)] leading-[0.98] tracking-tight">
@@ -89,7 +90,7 @@ export default function Welcome({ destaques = [] }) {
                             {destaqueHero.imagens?.length > 0 ? (
                                 <img
                                     src={`/storage/${destaqueHero.imagens[0]}`}
-                                    alt={`${titleCaseVeiculo(destaqueHero.marca)} ${titleCaseVeiculo(destaqueHero.modelo)}`}
+                                    alt={`${titleCaseVeiculo(destaqueHero.marca)} ${tituloModelo(destaqueHero.marca, destaqueHero.modelo)}`}
                                     loading="eager"
                                     fetchPriority="high"
                                     width={1200}
@@ -107,7 +108,7 @@ export default function Welcome({ destaques = [] }) {
                                     Destaque
                                 </span>
                                 <h3 className="font-archivo font-black text-2xl text-dark-50">
-                                    {titleCaseVeiculo(destaqueHero.marca)} {titleCaseVeiculo(destaqueHero.modelo)}
+                                    {titleCaseVeiculo(destaqueHero.marca)} {tituloModelo(destaqueHero.marca, destaqueHero.modelo)}
                                 </h3>
                                 <p className="text-dark-200 text-sm mt-1">
                                     {destaqueHero.ano} • {Number(destaqueHero.km).toLocaleString("pt-BR")} KM • {formatCombustivel(destaqueHero.combustivel)}
@@ -189,13 +190,7 @@ export default function Welcome({ destaques = [] }) {
                         {enderecos.map(({ titulo, endereco: end }, i) => (
                             <div key={i} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div className="sm:col-span-2 rounded-2xl overflow-hidden border border-white/[0.07] aspect-video bg-surface">
-                                    <iframe
-                                        title={`Mapa ${titulo}`}
-                                        src={`https://www.google.com/maps?q=${encodeURIComponent(end)}&output=embed`}
-                                        className="w-full h-full border-0"
-                                        loading="lazy"
-                                        referrerPolicy="no-referrer-when-downgrade"
-                                    />
+                                    <MapaEmbed titulo={titulo} endereco={end} />
                                 </div>
 
                                 <div className="bg-surface border border-white/[0.07] rounded-2xl p-6 flex flex-col justify-center gap-4">

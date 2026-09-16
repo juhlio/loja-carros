@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
+import FloatingWhatsApp from "../Components/FloatingWhatsApp";
 
 const SECTIONS = ["catalogo", "sobre", "local", "contato"];
 
-export default function Layout({ children }) {
+export default function Layout({ children, whatsappMessage = "Olá! Gostaria de mais informações." }) {
     const { siteCfg } = usePage().props;
     const { url: pageUrl } = usePage();
     const nomeLoja = siteCfg?.nome_loja ?? "Loja de Carros";
@@ -64,6 +65,8 @@ export default function Layout({ children }) {
             </header>
 
             <main>{children}</main>
+
+            <FloatingWhatsApp whatsapp={whatsapp} message={whatsappMessage} />
 
             <footer className="border-t border-white/[0.06] mt-24 py-12 px-[6vw] text-center text-dark-300 text-sm">
                 <nav aria-label="Rodapé" className="flex items-center justify-center gap-6 mb-6 flex-wrap font-semibold">

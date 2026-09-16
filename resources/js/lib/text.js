@@ -14,6 +14,18 @@ export function titleCaseVeiculo(str) {
         .join(" ");
 }
 
+// Remove o prefixo da marca do modelo quando o cadastro já inclui a marca
+// no campo modelo (ex: marca "Ford" + modelo "Ford Ka" -> "Ka"), evitando
+// nomes duplicados como "Ford Ford Ka" ao concatenar marca + modelo.
+export function tituloModelo(marca, modelo) {
+    const marcaTitulo = titleCaseVeiculo(marca);
+    const modeloTitulo = titleCaseVeiculo(modelo);
+    if (marcaTitulo && modeloTitulo.toLowerCase().startsWith(marcaTitulo.toLowerCase() + " ")) {
+        return modeloTitulo.slice(marcaTitulo.length).trim();
+    }
+    return modeloTitulo;
+}
+
 const COMBUSTIVEL_LABELS = {
     gasolina: "Gasolina",
     diesel: "Diesel",

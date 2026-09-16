@@ -4,16 +4,49 @@ import Layout from "../../Layouts/Layout";
 import CarCard from "../../Components/CarCard";
 import { titleCaseVeiculo } from "../../lib/text";
 
+const ORDENACOES = [
+    { value: "recentes", label: "Mais recentes" },
+    { value: "menor-preco", label: "Menor preço" },
+    { value: "maior-preco", label: "Maior preço" },
+    { value: "mais-novo", label: "Ano mais novo" },
+    { value: "menor-km", label: "Menor quilometragem" },
+];
+
 export default function Catalogo({ carros = [] }) {
     const [filtro, setFiltro] = useState("todos");
+    const [ordenacao, setOrdenacao] = useState("recentes");
+    const [precoMin, setPrecoMin] = useState("");
+    const [precoMax, setPrecoMax] = useState("");
     const { siteCfg } = usePage().props;
     const nomeLoja = siteCfg?.nome_loja || "Loja de Carros";
 
     const marcas = [...new Set(carros.map(c => c.marca))];
-    const filteredCarros = filtro === "todos" ? carros : carros.filter(c => c.marca === filtro);
+
+    const filteredCarros = carros
+        .filter(c => filtro === "todos" || c.marca === filtro)
+        .filter(c => precoMin === "" || Number(c.preco) >= Number(precoMin))
+        .filter(c => precoMax === "" || Number(c.preco) <= Number(precoMax))
+        .sort((a, b) => {
+            switch (ordenacao) {
+                case "menor-preco": return Number(a.preco) - Number(b.preco);
+                case "maior-preco": return Number(b.preco) - Number(a.preco);
+                case "mais-novo": return Number(b.ano) - Number(a.ano);
+                case "menor-km": return Number(a.km) - Number(b.km);
+                default: return 0;
+            }
+        });
+
+    const temFiltroAtivo = filtro !== "todos" || precoMin !== "" || precoMax !== "" || ordenacao !== "recentes";
+
+    function limparFiltros() {
+        setFiltro("todos");
+        setOrdenacao("recentes");
+        setPrecoMin("");
+        setPrecoMax("");
+    }
 
     return (
-        <Layout>
+        <Layout whatsappMessage="Olá! Estou dando uma olhada no catálogo e gostaria de ajuda para escolher um carro.">
             <Head title={`Catálogo de Seminovos — ${nomeLoja} | Chapecó, SC`} />
 
             <section className="px-[6vw] py-[8vw]">
@@ -23,7 +56,7 @@ export default function Catalogo({ carros = [] }) {
                 </div>
 
                 {/* Filtros */}
-                <div className="flex gap-3 mb-12 flex-wrap">
+                <div className="flex gap-3 mb-6 flex-wrap">
                     {["todos", ...marcas].map(item => (
                         <button
                             key={item}
@@ -37,6 +70,53 @@ export default function Catalogo({ carros = [] }) {
                             {item === "todos" ? "Todos" : titleCaseVeiculo(item)}
                         </button>
                     ))}
+                </div>
+
+                <div className="flex gap-3 mb-12 flex-wrap items-center">
+                    <label className="flex items-center gap-2 text-sm text-dark-300 font-semibold">
+                        Ordenar por
+                        <select
+                            value={ordenacao}
+                            onChange={e => setOrdenacao(e.target.value)}
+                            className="bg-dark-900 border border-white/[0.12] rounded-full px-4 py-2 text-sm font-bold text-dark-50 focus:border-accent focus:outline-none"
+                        >
+                            {ORDENACOES.map(({ value, label }) => (
+                                <option key={value} value={value}>{label}</option>
+                            ))}
+                        </select>
+                    </label>
+
+                    <label className="flex items-center gap-2 text-sm text-dark-300 font-semibold">
+                        Preço de
+                        <input
+                            type="number"
+                            inputMode="numeric"
+                            min="0"
+                            placeholder="R$ mín."
+                            value={precoMin}
+                            onChange={e => setPrecoMin(e.target.value)}
+                            className="w-28 bg-dark-900 border border-white/[0.12] rounded-full px-4 py-2 text-sm font-bold text-dark-50 focus:border-accent focus:outline-none"
+                        />
+                        até
+                        <input
+                            type="number"
+                            inputMode="numeric"
+                            min="0"
+                            placeholder="R$ máx."
+                            value={precoMax}
+                            onChange={e => setPrecoMax(e.target.value)}
+                            className="w-28 bg-dark-900 border border-white/[0.12] rounded-full px-4 py-2 text-sm font-bold text-dark-50 focus:border-accent focus:outline-none"
+                        />
+                    </label>
+
+                    {temFiltroAtivo && (
+                        <button
+                            onClick={limparFiltros}
+                            className="text-sm font-bold text-dark-300 hover:text-accent transition-colors underline underline-offset-2"
+                        >
+                            Limpar filtros
+                        </button>
+                    )}
                 </div>
 
                 {filteredCarros.length === 0 ? (

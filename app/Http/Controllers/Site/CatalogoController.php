@@ -29,7 +29,7 @@ class CatalogoController extends Controller
             "@type" => "ItemList",
             "itemListElement" => $carros->values()->map(function (Carro $carro, int $index) {
                 $marca = TextFormat::tituloVeiculo($carro->marca);
-                $modelo = TextFormat::tituloVeiculo($carro->modelo);
+                $modelo = TextFormat::tituloModelo($carro->marca, $carro->modelo);
                 $imagem = $carro->imagens[0] ?? null;
 
                 return array_filter([
@@ -75,7 +75,7 @@ class CatalogoController extends Controller
         }
 
         $marca  = TextFormat::tituloVeiculo($carro->marca);
-        $modelo = TextFormat::tituloVeiculo($carro->modelo);
+        $modelo = TextFormat::tituloModelo($carro->marca, $carro->modelo);
         $cor    = TextFormat::tituloVeiculo($carro->cor);
         $nomeCompleto = trim("{$marca} {$modelo} {$carro->ano}");
         $nomeLoja = Setting::get('nome_loja', 'Loja de Carros');

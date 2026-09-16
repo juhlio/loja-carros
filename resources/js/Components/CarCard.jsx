@@ -1,9 +1,9 @@
 import { Link } from "@inertiajs/react";
-import { titleCaseVeiculo, formatPreco, formatCombustivel } from "../lib/text";
+import { titleCaseVeiculo, tituloModelo, formatPreco, formatCombustivel } from "../lib/text";
 
 export default function CarCard({ carro, badge, showCor = false, priority = false }) {
     const marca = titleCaseVeiculo(carro.marca);
-    const modelo = titleCaseVeiculo(carro.modelo);
+    const modelo = tituloModelo(carro.marca, carro.modelo);
     return (
         <Link href={carro.url} className="group block">
             <article className="bg-surface border border-white/[0.07] rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:border-accent/50 hover:shadow-xl hover:shadow-black/40 hover:-translate-y-1">

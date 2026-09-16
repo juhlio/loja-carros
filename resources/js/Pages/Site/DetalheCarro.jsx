@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Head, Link, usePage } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
 import InfoIcon from "../../Components/InfoIcon";
-import { titleCaseVeiculo, formatPreco, formatDescricao, maskPlaca, formatCombustivel } from "../../lib/text";
+import { titleCaseVeiculo, tituloModelo, formatPreco, formatDescricao, maskPlaca, formatCombustivel } from "../../lib/text";
 import { thumbPath } from "../../lib/image";
 
 export default function DetalheCarro({ carro }) {
@@ -10,19 +10,19 @@ export default function DetalheCarro({ carro }) {
     const whatsapp = siteCfg?.whatsapp ?? "";
     const nomeLoja = siteCfg?.nome_loja || "Loja de Carros";
     const marca = titleCaseVeiculo(carro.marca);
-    const modelo = titleCaseVeiculo(carro.modelo);
+    const modelo = tituloModelo(carro.marca, carro.modelo);
     const nomeCompleto = `${marca} ${modelo} ${carro.ano}`;
     const precoFormatado = `R$ ${formatPreco(carro.preco)}`;
-    const mensagemTestDrive = encodeURIComponent(`Olá! Tenho interesse em agendar um test drive do ${nomeCompleto} (${precoFormatado}). Podemos conversar?`);
-    const mensagemInfo = encodeURIComponent(`Olá! Gostaria de mais informações sobre o ${nomeCompleto} (${precoFormatado}).`);
-    const linkWhatsapp = whatsapp ? `https://wa.me/${whatsapp}?text=${mensagemTestDrive}` : "#contato";
-    const linkWhatsappInfo = whatsapp ? `https://wa.me/${whatsapp}?text=${mensagemInfo}` : "#contato";
+    const mensagemTestDriveTexto = `Olá! Tenho interesse em agendar um test drive do ${nomeCompleto} (${precoFormatado}). Podemos conversar?`;
+    const mensagemInfoTexto = `Olá! Gostaria de mais informações sobre o ${nomeCompleto} (${precoFormatado}).`;
+    const linkWhatsapp = whatsapp ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(mensagemTestDriveTexto)}` : "#contato";
+    const linkWhatsappInfo = whatsapp ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(mensagemInfoTexto)}` : "#contato";
     const [imagemAtual, setImagemAtual] = useState(
         carro.imagens && carro.imagens.length > 0 ? carro.imagens[0] : null
     );
 
     return (
-        <Layout>
+        <Layout whatsappMessage={mensagemInfoTexto}>
             <Head title={`${nomeCompleto} — ${nomeLoja} | Chapecó, SC`} />
 
             <nav aria-label="Breadcrumb" className="px-[6vw] py-6 border-b border-white/[0.06]">
