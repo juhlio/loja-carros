@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Carro;
+use App\Support\TextFormat;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -34,6 +35,11 @@ class SitemapController extends Controller
         ];
 
         $carros->each(function (Carro $carro) use (&$urls, $baseUrl) {
+            // Remove a marca duplicada do modelo, mesmo tratamento aplicado
+            // ao título exibido no site, para não gerar "FORD FORD KA".
+            $modelo = TextFormat::tituloModelo($carro->marca, $carro->modelo);
+            $tituloImagem = trim("{$carro->marca} {$modelo} {$carro->ano}");
+
             $urls[] = [
                 'loc' => $baseUrl . $carro->url,
                 'lastmod' => $carro->updated_at?->toAtomString(),
@@ -41,7 +47,7 @@ class SitemapController extends Controller
                 'priority' => '0.8',
                 'images' => collect($carro->imagens ?? [])->map(fn ($caminho) => [
                     'loc' => asset("storage/{$caminho}"),
-                    'title' => trim("{$carro->marca} {$carro->modelo} {$carro->ano}"),
+                    'title' => $tituloImagem,
                 ])->all(),
             ];
         });
