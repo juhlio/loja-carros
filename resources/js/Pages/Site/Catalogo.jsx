@@ -52,7 +52,15 @@ export default function Catalogo({ carros = [] }) {
             <section className="px-[6vw] py-[8vw]">
                 <div className="mb-12">
                     <div className="text-xs font-bold tracking-widest uppercase text-accent-soft mb-3">Estoque completo</div>
-                    <h1 className="font-archivo font-black text-[clamp(40px,5.2vw,74px)] leading-tight">Seminovos e Usados em Chapecó, SC</h1>
+                    <h1 className="font-archivo font-black text-[clamp(40px,5.2vw,74px)] leading-tight mb-6">Seminovos e Usados em Chapecó, SC</h1>
+                    <div className="max-w-2xl text-dark-200 leading-relaxed space-y-3">
+                        <p>
+                            Aqui você encontra o estoque completo de seminovos da {nomeLoja}, com procedência garantida e revisão completa em cada veículo antes de chegar até você. Filtre por marca ou faixa de preço para achar o carro certo mais rápido.
+                        </p>
+                        <p>
+                            Atendimento direto pelo WhatsApp, financiamento facilitado e aceitamos seu usado na troca — sem enrolação, do jeito que a compra de um carro em Chapecó, SC deveria ser.
+                        </p>
+                    </div>
                 </div>
 
                 {/* Filtros */}

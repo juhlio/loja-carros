@@ -31,6 +31,10 @@
             <meta property="og:site_name" content="{{ config('app.name', 'Loja de Carros') }}">
             <meta property="og:locale" content="pt_BR">
 
+            @if (!empty($seo['preloadImage']))
+                <link rel="preload" as="image" href="{{ $seo['preloadImage'] }}" fetchpriority="high">
+            @endif
+
             <meta name="twitter:card" content="summary_large_image">
             <meta name="twitter:title" content="{{ $seoTitle }}">
             <meta name="twitter:description" content="{{ $seoDescription }}">

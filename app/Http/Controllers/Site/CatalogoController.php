@@ -41,6 +41,7 @@ class CatalogoController extends Controller
                         "name" => trim("{$marca} {$modelo} {$carro->ano}"),
                         "url" => url($carro->url),
                         "image" => $imagem ? asset("storage/{$imagem}") : null,
+                        "itemCondition" => "https://schema.org/UsedCondition",
                         "offers" => [
                             "@type" => "Offer",
                             "priceCurrency" => "BRL",
@@ -68,7 +69,13 @@ class CatalogoController extends Controller
 
     public function show($id)
     {
-        $carro = Carro::where("ativo", true)->findOrFail((int) $id);
+        $carro = Carro::where("ativo", true)->find((int) $id);
+
+        // Carro vendido/removido: redireciona pro catálogo em vez de 404 puro,
+        // preservando o link equity de quem chegou por um link antigo.
+        if (!$carro) {
+            return redirect('/catalogo', 301);
+        }
 
         if ($id !== "{$carro->id}-{$carro->slug}") {
             return redirect($carro->url, 301);
@@ -115,6 +122,7 @@ class CatalogoController extends Controller
             "color" => $cor,
             "fuelType" => $carro->combustivel,
             "image" => $imagemUrl,
+            "itemCondition" => "https://schema.org/UsedCondition",
             "offers" => [
                 "@type" => "Offer",
                 "priceCurrency" => "BRL",

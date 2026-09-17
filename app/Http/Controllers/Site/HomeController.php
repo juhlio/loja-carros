@@ -32,10 +32,17 @@ class HomeController extends Controller
         $nomeLoja = Setting::get('nome_loja', 'Loja de Carros');
         $logo     = Setting::get('logo');
         $telefone = Setting::get('telefone', '') ?: Setting::get('whatsapp', '');
+        // Schema.org exige telefone em E.164 (com "+"); os números são
+        // cadastrados só com dígitos (ex: 5549991698515).
+        $telefoneSchema = $telefone ? '+' . ltrim($telefone, '+') : null;
         $endereco = Setting::get('endereco', '');
 
         $fotoDestaque = $destaques->first(fn ($carro) => !empty($carro->imagens))?->imagens[0] ?? null;
         $ogImage = $fotoDestaque ? asset("storage/{$fotoDestaque}") : ($logo ? asset("storage/{$logo}") : null);
+        // Imagem do primeiro destaque é a LCP da home (hero); precarregá-la
+        // no <head> evita que o navegador só a descubra após o parse do DOM.
+        $heroImage = $destaques->first()?->imagens[0] ?? null;
+        $heroImageUrl = $heroImage ? asset("storage/{$heroImage}") : null;
 
         return Inertia::render('Welcome', [
             'destaques' => $destaques,
@@ -43,6 +50,7 @@ class HomeController extends Controller
                 'title' => "{$nomeLoja} — Seminovos em Chapecó, SC",
                 'description' => "Compre seu carro seminovo em Chapecó, SC com procedência garantida. Estoque selecionado, financiamento facilitado e atendimento direto pelo WhatsApp.",
                 'image' => $ogImage,
+                'preloadImage' => $heroImageUrl,
                 'type' => 'website',
                 'jsonLd' => [
                     '@context' => 'https://schema.org',
@@ -52,7 +60,7 @@ class HomeController extends Controller
                             'name' => $nomeLoja,
                             'image' => $ogImage,
                             'url' => url('/'),
-                            'telephone' => $telefone ?: null,
+                            'telephone' => $telefoneSchema,
                             'priceRange' => '$$',
                             'address' => $endereco ? [
                                 '@type' => 'PostalAddress',

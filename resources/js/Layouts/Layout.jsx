@@ -39,7 +39,7 @@ export default function Layout({ children, whatsappMessage = "Olá! Gostaria de 
     return (
         <div className="bg-dark-950 text-dark-50 font-manrope min-h-screen">
             <header className="sticky top-0 z-50 flex items-center justify-between px-[6vw] py-[18px] bg-dark-950/80 backdrop-blur-[12px] border-b border-white/[0.06]">
-                <Link href="/" className="flex items-center gap-3">
+                <Link href="/" className="flex items-center gap-3" aria-label="Ir para a página inicial">
                     {logo ? (
                         <img src={`/storage/${logo}`} alt={nomeLoja} className="h-12 md:h-20 w-auto object-contain" />
                     ) : (
