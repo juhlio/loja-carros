@@ -83,6 +83,15 @@ class CatalogoController extends Controller
         $imagemUrl = $imagem ? asset("storage/{$imagem}") : null;
         $km = number_format((float) $carro->km, 0, ',', '.');
 
+        // Prioriza carros da mesma marca e depois os de preço mais próximo,
+        // para sugerir opções relevantes caso este carro não seja o ideal.
+        $relacionados = Carro::where('ativo', true)
+            ->where('id', '!=', $carro->id)
+            ->orderByRaw('marca = ? DESC', [$carro->marca])
+            ->orderByRaw('ABS(preco - ?) ASC', [$carro->preco])
+            ->limit(4)
+            ->get();
+
         $breadcrumb = [
             "@type" => "BreadcrumbList",
             "itemListElement" => [
@@ -117,6 +126,7 @@ class CatalogoController extends Controller
 
         return Inertia::render("Site/DetalheCarro", [
             "carro" => $carro,
+            "relacionados" => $relacionados,
             "seo" => [
                 "title" => "{$nomeCompleto} — {$nomeLoja} | Chapecó, SC",
                 "description" => "{$nomeCompleto}, {$km} km, " . ucfirst((string) $carro->combustivel) . ". Confira preço, fotos e agende um test drive na {$nomeLoja}, em Chapecó, SC.",

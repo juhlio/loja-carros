@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Head, Link, usePage } from "@inertiajs/react";
 import Layout from "../../Layouts/Layout";
 import InfoIcon from "../../Components/InfoIcon";
+import CarCard from "../../Components/CarCard";
 import { titleCaseVeiculo, tituloModelo, formatPreco, formatDescricao, maskPlaca, formatCombustivel } from "../../lib/text";
 import { thumbPath } from "../../lib/image";
 
-export default function DetalheCarro({ carro }) {
+export default function DetalheCarro({ carro, relacionados = [] }) {
     const { siteCfg } = usePage().props;
     const whatsapp = siteCfg?.whatsapp ?? "";
     const nomeLoja = siteCfg?.nome_loja || "Loja de Carros";
@@ -178,6 +179,17 @@ export default function DetalheCarro({ carro }) {
                     ))}
                 </div>
             </section>
+
+            {relacionados.length > 0 && (
+                <section className="px-[6vw] py-[8vw] border-t border-white/[0.06]">
+                    <h2 className="font-archivo font-black text-2xl mb-10">Outros carros que podem te interessar</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {relacionados.map(carroRelacionado => (
+                            <CarCard key={carroRelacionado.id} carro={carroRelacionado} />
+                        ))}
+                    </div>
+                </section>
+            )}
 
             <section className="px-[6vw] pb-[8vw]">
                 <div className="bg-gradient-to-br from-dark-900 to-dark-800 border border-white/[0.07] rounded-3xl p-12 text-center">
