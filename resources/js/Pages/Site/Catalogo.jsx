@@ -12,6 +12,41 @@ const ORDENACOES = [
     { value: "menor-km", label: "Menor quilometragem" },
 ];
 
+// Logo em public/marcas/{slug}.svg (ex: volkswagen.svg). Sem arquivo, mostra o nome.
+function slugMarca(marca) {
+    return marca
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+}
+
+function BotaoMarca({ marca, ativo, onClick }) {
+    const [semLogo, setSemLogo] = useState(false);
+    const nome = marca === "todos" ? "Todos" : titleCaseVeiculo(marca);
+    const classe = `px-5 py-2.5 rounded-full font-bold text-sm transition-colors ${
+        ativo
+            ? "bg-accent text-dark-950"
+            : "bg-dark-900 text-dark-50 border border-white/[0.12] hover:border-accent hover:text-accent"
+    }`;
+
+    if (marca === "todos" || semLogo) {
+        return <button onClick={onClick} className={classe}>{nome}</button>;
+    }
+
+    return (
+        <button onClick={onClick} className={`${classe} flex items-center`} aria-label={nome} title={nome}>
+            <img
+                src={`/marcas/${slugMarca(marca)}.svg`}
+                alt={nome}
+                loading="lazy"
+                onError={() => setSemLogo(true)}
+                className="h-6 w-auto max-w-[96px] object-contain"
+            />
+        </button>
+    );
+}
+
 export default function Catalogo({ carros = [] }) {
     const [filtro, setFiltro] = useState("todos");
     const [ordenacao, setOrdenacao] = useState("recentes");
@@ -66,17 +101,12 @@ export default function Catalogo({ carros = [] }) {
                 {/* Filtros */}
                 <div className="flex gap-3 mb-6 flex-wrap">
                     {["todos", ...marcas].map(item => (
-                        <button
+                        <BotaoMarca
                             key={item}
+                            marca={item}
+                            ativo={filtro === item}
                             onClick={() => setFiltro(item)}
-                            className={`px-5 py-2.5 rounded-full font-bold text-sm transition-colors ${
-                                filtro === item
-                                    ? "bg-accent text-dark-950"
-                                    : "bg-dark-900 text-dark-50 border border-white/[0.12] hover:border-accent hover:text-accent"
-                            }`}
-                        >
-                            {item === "todos" ? "Todos" : titleCaseVeiculo(item)}
-                        </button>
+                        />
                     ))}
                 </div>
 
