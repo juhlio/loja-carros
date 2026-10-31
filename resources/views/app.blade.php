@@ -54,6 +54,15 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+        @if (config('services.google_analytics.measurement_id'))
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google_analytics.measurement_id') }}"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', @js(config('services.google_analytics.measurement_id')));
+            </script>
+        @endif
         @viteReactRefresh
         @vite(["resources/css/app.css", "resources/js/app.jsx"])
     </head>
