@@ -5,6 +5,7 @@ import InfoIcon from "../../Components/InfoIcon";
 import CarCard from "../../Components/CarCard";
 import { titleCaseVeiculo, tituloModelo, formatPreco, formatDescricao, maskPlaca, formatCombustivel } from "../../lib/text";
 import { thumbPath } from "../../lib/image";
+import { rastrearWhatsapp } from "../../lib/analytics";
 
 export default function DetalheCarro({ carro, relacionados = [] }) {
     const { siteCfg } = usePage().props;
@@ -108,6 +109,7 @@ export default function DetalheCarro({ carro, relacionados = [] }) {
                             <div className="flex flex-col gap-3">
                                 <a
                                     href={linkWhatsapp}
+                                    onClick={() => rastrearWhatsapp("detalhe_test_drive")}
                                     target={whatsapp ? "_blank" : "_self"}
                                     rel="noopener noreferrer"
                                     className="w-full block text-center bg-accent text-dark-950 font-bold py-4 rounded-lg hover:opacity-90 transition-opacity"
@@ -116,6 +118,7 @@ export default function DetalheCarro({ carro, relacionados = [] }) {
                                 </a>
                                 <a
                                     href={linkWhatsappInfo}
+                                    onClick={() => rastrearWhatsapp("detalhe_informacoes")}
                                     target={whatsapp ? "_blank" : "_self"}
                                     rel="noopener noreferrer"
                                     className="w-full block text-center bg-dark-800 text-accent font-bold py-4 rounded-lg border border-accent hover:bg-accent hover:text-dark-950 transition-colors"
@@ -202,6 +205,7 @@ export default function DetalheCarro({ carro, relacionados = [] }) {
                     <div className="flex gap-4 justify-center flex-wrap">
                         <a
                             href={linkWhatsapp}
+                            onClick={() => rastrearWhatsapp("detalhe_test_drive_final")}
                             target={whatsapp ? "_blank" : "_self"}
                             rel="noopener noreferrer"
                             className="bg-accent text-dark-950 font-bold px-8 py-4 rounded-lg hover:opacity-90 transition-opacity"

@@ -1,5 +1,6 @@
 import { Link, usePage } from "@inertiajs/react";
 import { titleCaseVeiculo, tituloModelo, formatPreco, formatCombustivel } from "../lib/text";
+import { rastrearWhatsapp } from "../lib/analytics";
 
 export default function CarCard({ carro, badge, showCor = false, priority = false }) {
     const { siteCfg } = usePage().props;
@@ -64,7 +65,10 @@ export default function CarCard({ carro, badge, showCor = false, priority = fals
                     href={linkWhatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={e => e.stopPropagation()}
+                    onClick={e => {
+                        e.stopPropagation();
+                        rastrearWhatsapp("card_carro");
+                    }}
                     aria-label={`Falar no WhatsApp sobre o ${marca} ${modelo}`}
                     className="absolute top-3 right-3 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-[#25D366] text-white shadow-md hover:scale-110 transition-transform"
                 >
