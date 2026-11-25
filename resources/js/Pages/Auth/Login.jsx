@@ -37,7 +37,7 @@ export default function Login() {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
                             <label className="block text-xs font-bold uppercase text-dark-400 mb-2">Email</label>
-                            <input type="email" name="email" value={form.email} onChange={set} required className={inputCls} placeholder="admin@loja.com" />
+                            <input type="email" name="email" value={form.email} onChange={set} required className={inputCls} placeholder="seu@email.com" />
                             {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email}</p>}
                         </div>
                         <div>
@@ -48,9 +48,6 @@ export default function Login() {
                             {loading ? "Entrando..." : "Entrar"}
                         </button>
                     </form>
-                    <div className="mt-6 bg-dark-800 border border-white/[0.07] rounded-lg p-4 text-center">
-                        <p className="text-xs text-dark-400 font-mono">admin@loja.com / admin123</p>
-                    </div>
                 </div>
             </div>
         </div>
