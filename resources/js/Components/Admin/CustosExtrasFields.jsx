@@ -55,16 +55,16 @@ export default function CustosExtrasFields({ carroId, custos, categorias }) {
 
     return (
         <div className="space-y-4">
-            <div className="flex items-end justify-between gap-4">
-                <div>
-                    <p className="text-xs font-bold uppercase text-dark-400">Total de custos extras</p>
-                    <p className="font-archivo font-black text-2xl text-accent">{formatarMoeda(total)}</p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="min-w-0">
+                    <p className="text-xs font-bold uppercase text-dark-400 whitespace-nowrap">Total de custos extras</p>
+                    <p className="font-archivo font-black text-2xl whitespace-nowrap">{formatarMoeda(total)}</p>
                 </div>
                 <button
                     type="button"
                     onClick={() => setAberto(v => !v)}
                     aria-expanded={aberto}
-                    className="bg-accent text-dark-950 font-bold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap min-h-[44px]"
+                    className="bg-dark-800 text-accent border border-accent font-bold px-5 py-2.5 rounded-lg hover:bg-accent hover:text-dark-950 transition-colors whitespace-nowrap min-h-[44px] self-start sm:self-auto"
                 >
                     {aberto ? "Fechar" : "+ Adicionar custo"}
                 </button>
@@ -118,17 +118,18 @@ export default function CustosExtrasFields({ carroId, custos, categorias }) {
             {custos.length > 0 ? (
                 <ul className="divide-y divide-white/[0.06] border border-white/[0.07] rounded-lg">
                     {custos.map((c) => (
-                        <li key={c.id} className="flex items-center gap-4 px-4 py-3">
-                            <span className="text-xs text-dark-400 w-20 shrink-0">{formatarData(c.data)}</span>
-                            <div className="flex-1 min-w-0">
-                                <p className="font-semibold truncate">{c.descricao}</p>
+                        <li key={c.id} className="grid grid-cols-[1fr_auto] sm:grid-cols-[auto_1fr_auto_auto] items-center gap-x-4 gap-y-1 px-4 py-3">
+                            <span className="text-xs text-dark-400 whitespace-nowrap sm:w-20">{formatarData(c.data)}</span>
+                            <div className="min-w-0 sm:order-none order-first">
+                                <p className="font-semibold break-words">{c.descricao}</p>
                                 <p className="text-xs text-dark-400">{categorias[c.categoria] ?? c.categoria}</p>
                             </div>
-                            <span className="font-bold whitespace-nowrap">{formatarMoeda(c.valor)}</span>
+                            <span className="font-bold text-right whitespace-nowrap">{formatarMoeda(c.valor)}</span>
                             <button
                                 type="button"
                                 onClick={() => setParaRemover(c)}
-                                className="min-h-[44px] px-2 text-xs font-bold uppercase text-dark-400 hover:text-red-400 transition-colors"
+                                aria-label={`Remover ${c.descricao}`}
+                                className="justify-self-end min-h-[44px] px-2 text-xs font-bold uppercase text-dark-400 hover:text-red-400 transition-colors"
                             >
                                 Remover
                             </button>

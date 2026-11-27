@@ -127,7 +127,7 @@ export function Indicador({ titulo, valor, detalhe, destaque = false }) {
     return (
         <div className="bg-dark-900 border border-white/[0.07] rounded-xl p-5 min-w-0">
             <p className="text-xs font-bold uppercase text-dark-400 mb-2">{titulo}</p>
-            <p className={`font-archivo font-black text-lg sm:text-2xl whitespace-nowrap overflow-hidden text-ellipsis ${destaque ? "text-accent" : ""}`}>{valor}</p>
+            <p className={`font-archivo font-black text-xl 2xl:text-2xl whitespace-nowrap ${destaque ? "text-accent" : ""}`}>{valor}</p>
             {detalhe && <p className="text-xs text-dark-400 mt-1">{detalhe}</p>}
         </div>
     );

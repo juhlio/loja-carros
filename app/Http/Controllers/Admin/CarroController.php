@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 
 class CarroController extends Controller
 {
+    private const TAXA_CUSTO_ESTOQUE = 0.008;
+
     public function index()
     {
         $podeFinanceiro = $this->podeFinanceiro();
@@ -191,6 +193,8 @@ class CarroController extends Controller
             $dias = (int) Carbon::parse($carro->data_entrada)->startOfDay()->diffInDays($fim->copy()->startOfDay());
         }
 
+        $custo = $this->custoDeEstoque($carro);
+
         $composicao = collect([
             ['label' => 'Preço de compra', 'value' => round((float) $compra, 2)],
             ['label' => 'Custo de reforma', 'value' => round($reforma, 2)],
@@ -221,9 +225,42 @@ class CarroController extends Controller
                 'margem'           => $margem === null ? null : round($margem, 2),
                 'margem_percentual'=> ($margem !== null && $investido > 0) ? round($margem / $investido * 100, 1) : null,
                 'dias_em_estoque'  => $dias,
+                // Custo de estoque não entra na margem acima. Aparece separado, em margem_liquida.
+                'custo_mensal'     => $custo['mensal'],
+                'custo_diario'     => $custo['diario'],
+                'custo_estoque'    => $custo['total'],
+                'margem_liquida'   => ($margem !== null && $custo['total'] !== null) ? round($margem - $custo['total'], 2) : null,
             ],
             'composicao' => $composicao,
             'porMes' => $porMes,
+        ];
+    }
+
+    // Custo de estoque: 0,8% do valor FIPE por mês, dividido pelos dias de cada mês em que o carro ficou parado.
+    private function custoDeEstoque(Carro $carro): array
+    {
+        $vazio = ['mensal' => null, 'diario' => null, 'total' => null];
+
+        if ($carro->fipe_valor === null || !$carro->data_entrada) {
+            return $vazio;
+        }
+
+        $inicio = Carbon::parse($carro->data_entrada)->startOfDay();
+        $fim = ($carro->situacao === 'vendido' && $carro->data_venda)
+            ? Carbon::parse($carro->data_venda)->startOfDay()
+            : now()->startOfDay();
+
+        $mensal = (float) $carro->fipe_valor * self::TAXA_CUSTO_ESTOQUE;
+        $total = 0.0;
+
+        for ($dia = $inicio->copy(); $dia->lt($fim); $dia->addDay()) {
+            $total += $mensal / $dia->daysInMonth;
+        }
+
+        return [
+            'mensal' => round($mensal, 2),
+            'diario' => round($mensal / now()->daysInMonth, 2),
+            'total' => round($total, 2),
         ];
     }
 

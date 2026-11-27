@@ -103,6 +103,14 @@ export default function Show({ carro, podeFinanceiro, custos = [], categoriasCus
                     </div>
                 </div>
 
+                {podeFinanceiro && analise && <AnaliseCarro analise={analise} />}
+
+                {podeFinanceiro && (
+                    <Secao id="custos" titulo="Custos extras" descricao="Troca de óleo, pneus, funilaria e outros gastos. Não aparecem no site.">
+                        <CustosExtrasFields carroId={carro.id} custos={custos} categorias={categoriasCustos} />
+                    </Secao>
+                )}
+
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Coluna principal */}
                     <div className="lg:col-span-2 space-y-8 min-w-0">
@@ -122,7 +130,7 @@ export default function Show({ carro, podeFinanceiro, custos = [], categoriasCus
                                 <Campo rotulo="Modelo" valor={carro.modelo} />
                                 <Campo rotulo="Ano" valor={carro.ano} />
                                 <Campo rotulo="Cor" valor={carro.cor} />
-                                <Campo rotulo="Combustível" valor={carro.combustivel} />
+                                <Campo rotulo="Combustível" valor={carro.combustivel.charAt(0).toUpperCase() + carro.combustivel.slice(1)} />
                                 <Campo rotulo="Quilometragem" valor={`${Number(carro.km).toLocaleString("pt-BR")} km`} />
                                 <Campo rotulo="Placa" valor={carro.placa} />
                                 <Campo rotulo="Preço anunciado" valor={moeda(carro.preco)} />
@@ -171,10 +179,10 @@ export default function Show({ carro, podeFinanceiro, custos = [], categoriasCus
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                                     <Campo rotulo="RENAVAM" valor={texto(carro.renavam)} />
                                     <Campo rotulo="Chassi" valor={texto(carro.chassi)} />
-                                    <Campo rotulo="IPVA" valor={IPVA[carro.ipva_situacao] ?? "—"} />
+                                    <Campo rotulo="IPVA" valor={<span className={carro.ipva_situacao === "pago" ? "text-green-400" : carro.ipva_situacao === "pendente" ? "text-orange-300" : ""}>{IPVA[carro.ipva_situacao] ?? "—"}</span>} />
                                     <Campo rotulo="Licenciamento" valor={texto(carro.licenciamento_ano)} />
-                                    <Campo rotulo="Multas" valor={carro.multas ? "Sim" : "Não"} />
-                                    <Campo rotulo="Gravame" valor={carro.gravame ? "Sim" : "Não"} />
+                                    <Campo rotulo="Multas" valor={<span className={carro.multas ? "text-red-400" : "text-green-400"}>{carro.multas ? "⚠ Sim" : "✓ Não"}</span>} />
+                                    <Campo rotulo="Gravame" valor={<span className={carro.gravame ? "text-red-400" : "text-green-400"}>{carro.gravame ? "⚠ Sim" : "✓ Não"}</span>} />
                                 </div>
                             </div>
 
@@ -206,16 +214,6 @@ export default function Show({ carro, podeFinanceiro, custos = [], categoriasCus
                         </Secao>
                     </div>
 
-                    {/* Coluna lateral: análise e custos (só admin) */}
-                    {podeFinanceiro && (
-                        <aside className="space-y-8 min-w-0">
-                            {analise && <AnaliseCarro analise={analise} />}
-
-                            <Secao id="custos" titulo="Custos extras" descricao="Troca de óleo, pneus, funilaria e outros gastos.">
-                                <CustosExtrasFields carroId={carro.id} custos={custos} categorias={categoriasCustos} />
-                            </Secao>
-                        </aside>
-                    )}
                 </div>
             </div>
         </AdminLayout>
