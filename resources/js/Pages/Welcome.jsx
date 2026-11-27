@@ -60,7 +60,7 @@ export default function Welcome({ destaques = [] }) {
                             </Link>
                             <a
                                 href={whatsapp ? `https://wa.me/${whatsapp}` : "#contato"}
-                                onClick={() => rastrearWhatsapp("inicio_hero")}
+                                onClick={() => rastrearWhatsapp("hero")}
                                 target={whatsapp ? "_blank" : "_self"}
                                 rel="noopener noreferrer"
                                 className="border border-white/[0.18] text-dark-50 font-bold px-7 py-4 rounded-full text-base hover:border-accent hover:text-accent transition-colors"
@@ -233,7 +233,7 @@ export default function Welcome({ destaques = [] }) {
                         {whatsapp && (
                             <a
                                 href={`https://wa.me/${whatsapp}`}
-                                onClick={() => rastrearWhatsapp("inicio_contato")}
+                                onClick={() => rastrearWhatsapp("contato")}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="bg-dark-950 border border-white/[0.07] rounded-2xl p-6 hover:border-accent/50 transition-colors"
@@ -260,7 +260,7 @@ export default function Welcome({ destaques = [] }) {
                         </p>
                         <a
                             href={whatsapp ? `https://wa.me/${whatsapp}` : "#"}
-                            onClick={() => rastrearWhatsapp("inicio_contato")}
+                            onClick={() => rastrearWhatsapp("contato")}
                             target={whatsapp ? "_blank" : "_self"}
                             rel="noopener noreferrer"
                             className="inline-block bg-accent text-dark-950 font-bold px-7 py-4 rounded-full hover:opacity-90 transition-opacity"

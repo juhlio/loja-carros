@@ -18,6 +18,9 @@ Route::post("/login", [AuthController::class, "login"])->middleware("throttle:5,
 Route::get("/logout", [AuthController::class, "logout"])->name("logout");
 
 Route::middleware("admin")->prefix("admin")->name("admin.")->group(function () {
+    Route::get("/", [\App\Http\Controllers\Admin\DashboardController::class, "index"])->name("home");
+    Route::get("/fipe/buscar", [\App\Http\Controllers\Admin\FipeController::class, "buscar"])->name("fipe.buscar");
+    Route::patch("/carros/{carro}/situacao", [\App\Http\Controllers\Admin\CarroController::class, "situacao"])->name("carros.situacao");
     Route::resource("carros", \App\Http\Controllers\Admin\CarroController::class);
     Route::get("/perfil",  [\App\Http\Controllers\Admin\AdminController::class, "perfil"])->name("perfil");
     Route::put("/perfil",  [\App\Http\Controllers\Admin\AdminController::class, "atualizarPerfil"]);
@@ -26,5 +29,8 @@ Route::middleware("admin")->prefix("admin")->name("admin.")->group(function () {
         Route::resource("usuarios", \App\Http\Controllers\Admin\AdminController::class);
         Route::get("/configuracoes",  [\App\Http\Controllers\Admin\SettingsController::class, "index"])->name("configuracoes");
         Route::post("/configuracoes", [\App\Http\Controllers\Admin\SettingsController::class, "update"]);
+        Route::post("/carros/{carro}/custos", [\App\Http\Controllers\Admin\CustoCarroController::class, "store"])->name("carros.custos.store");
+        Route::delete("/carros/{carro}/custos/{custo}", [\App\Http\Controllers\Admin\CustoCarroController::class, "destroy"])->name("carros.custos.destroy");
+        Route::get("/analise", [\App\Http\Controllers\Admin\AnaliseController::class, "index"])->name("analise");
     });
 });

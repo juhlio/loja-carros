@@ -30,7 +30,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
         session(['admin_id' => $admin->id, 'admin_nome' => $admin->nome]);
 
-        return redirect('/admin/carros');
+        return redirect('/admin');
     }
 
     public function logout(Request $request)

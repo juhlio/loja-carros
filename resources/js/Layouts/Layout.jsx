@@ -57,7 +57,7 @@ export default function Layout({ children, whatsappMessage = "Olá! Gostaria de 
 
                 <a
                     href={whatsapp ? `https://wa.me/${whatsapp}` : "/#contato"}
-                    onClick={() => rastrearWhatsapp("cabecalho")}
+                    onClick={() => rastrearWhatsapp("header")}
                     target={whatsapp ? "_blank" : "_self"}
                     rel="noopener noreferrer"
                     className="bg-accent text-dark-950 font-bold px-5 py-3 rounded-full text-sm hover:opacity-90 transition-opacity"

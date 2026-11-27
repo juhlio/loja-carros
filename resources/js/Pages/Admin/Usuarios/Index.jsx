@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Head, Link, router, usePage } from "@inertiajs/react";
 import AdminLayout from "../../../Layouts/AdminLayout";
+import ConfirmDialog from "../../../Components/Admin/ConfirmDialog";
 
 const roleLabel = { super_admin: "Super Admin", admin: "Admin", vendedor: "Vendedor" };
 const roleColor = { super_admin: "bg-red-500/20 text-red-400", admin: "bg-blue-500/20 text-blue-400", vendedor: "bg-green-500/20 text-green-400" };
@@ -8,16 +9,17 @@ const roleColor = { super_admin: "bg-red-500/20 text-red-400", admin: "bg-blue-5
 export default function Index({ usuarios }) {
     const { adminAtual, flash } = usePage().props;
     const [search, setSearch] = useState("");
+    const [funcaoFiltro, setFuncaoFiltro] = useState("todas");
+    const [paraDeletar, setParaDeletar] = useState(null);
 
     const filtered = usuarios.filter(u =>
-        u.nome.toLowerCase().includes(search.toLowerCase()) ||
-        u.email.toLowerCase().includes(search.toLowerCase())
+        (u.nome.toLowerCase().includes(search.toLowerCase()) ||
+         u.email.toLowerCase().includes(search.toLowerCase())) &&
+        (funcaoFiltro === "todas" || u.role === funcaoFiltro)
     );
 
-    const handleDelete = (usuario) => {
-        if (usuario.id === adminAtual.id) return;
-        if (!confirm(`Deletar ${usuario.nome}?`)) return;
-        router.delete(`/admin/usuarios/${usuario.id}`);
+    const confirmarDelete = () => {
+        router.delete(`/admin/usuarios/${paraDeletar.id}`, { onFinish: () => setParaDeletar(null) });
     };
 
     return (
@@ -42,14 +44,32 @@ export default function Index({ usuarios }) {
                 </div>
             )}
 
-            <div className="mb-6">
-                <input
-                    type="text"
-                    placeholder="Buscar por nome ou email..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full px-4 py-3 bg-dark-900 border border-white/[0.07] rounded-lg text-dark-50 placeholder-dark-400 focus:outline-none focus:border-accent transition-colors"
-                />
+            <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="md:col-span-2">
+                    <label htmlFor="busca-usuario" className="sr-only">Buscar por nome ou email</label>
+                    <input
+                        id="busca-usuario"
+                        type="text"
+                        placeholder="Buscar por nome ou email..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="w-full px-4 py-3 bg-dark-900 border border-white/[0.07] rounded-lg text-dark-50 placeholder-dark-400 focus:outline-none focus:border-accent transition-colors"
+                    />
+                </div>
+                <div>
+                    <label htmlFor="filtro-funcao" className="sr-only">Filtrar por função</label>
+                    <select
+                        id="filtro-funcao"
+                        value={funcaoFiltro}
+                        onChange={(e) => setFuncaoFiltro(e.target.value)}
+                        className="w-full px-4 py-3 bg-dark-900 border border-white/[0.07] rounded-lg text-dark-50 focus:outline-none focus:border-accent transition-colors"
+                    >
+                        <option value="todas">Todas as funções</option>
+                        <option value="super_admin">Super Admin</option>
+                        <option value="admin">Admin</option>
+                        <option value="vendedor">Vendedor</option>
+                    </select>
+                </div>
             </div>
 
             <div className="bg-dark-900 border border-white/[0.07] rounded-2xl overflow-hidden">
@@ -89,7 +109,8 @@ export default function Index({ usuarios }) {
                                                     Editar
                                                 </Link>
                                                 {u.id !== adminAtual?.id && adminAtual?.role === "super_admin" && (
-                                                    <button onClick={() => handleDelete(u)} className="text-xs font-bold text-red-400 hover:opacity-70 transition-opacity">
+                                                    <button type="button" onClick={() => setParaDeletar(u)} className="min-h-[44px] px-2 text-xs font-bold text-red-400 hover:opacity-70 transition-opacity">
+
                                                         Deletar
                                                     </button>
                                                 )}
@@ -104,6 +125,16 @@ export default function Index({ usuarios }) {
                     <div className="px-6 py-16 text-center text-dark-400">Nenhum usuário encontrado</div>
                 )}
             </div>
+
+            <ConfirmDialog
+                aberto={!!paraDeletar}
+                titulo="Deletar usuário?"
+                mensagem={paraDeletar ? `${paraDeletar.nome} (${paraDeletar.email}) perderá o acesso ao painel. Não dá para desfazer.` : ""}
+                textoConfirmar="Deletar"
+                perigo
+                onConfirmar={confirmarDelete}
+                onCancelar={() => setParaDeletar(null)}
+            />
         </AdminLayout>
     );
 }

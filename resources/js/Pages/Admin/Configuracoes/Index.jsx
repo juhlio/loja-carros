@@ -151,18 +151,21 @@ export default function Configuracoes({ settings }) {
                     </Section>
 
                     <Section title="Estatísticas da Home">
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
-                                <label className={labelCls}>Carros Vendidos</label>
-                                <input type="text" name="carros_vendidos" value={form.carros_vendidos ?? ""} onChange={set} className={inputCls} placeholder="+500" />
+                                <label htmlFor="carros_vendidos" className={labelCls}>Carros Vendidos</label>
+                                <input id="carros_vendidos" type="text" inputMode="numeric" name="carros_vendidos" value={form.carros_vendidos ?? ""} onChange={set} className={inputCls} placeholder="+500" />
+                                <p className="mt-1 text-xs text-dark-400">Só números. Pode começar com +.</p>
                             </div>
                             <div>
-                                <label className={labelCls}>Anos no Mercado</label>
-                                <input type="text" name="anos_mercado" value={form.anos_mercado ?? ""} onChange={set} className={inputCls} placeholder="12" />
+                                <label htmlFor="anos_mercado" className={labelCls}>Anos no Mercado</label>
+                                <input id="anos_mercado" type="text" inputMode="numeric" name="anos_mercado" value={form.anos_mercado ?? ""} onChange={set} className={inputCls} placeholder="12" />
+                                <p className="mt-1 text-xs text-dark-400">Só números.</p>
                             </div>
                             <div>
-                                <label className={labelCls}>Avaliação Google</label>
-                                <input type="text" name="avaliacao_google" value={form.avaliacao_google ?? ""} onChange={set} className={inputCls} placeholder="4,9" />
+                                <label htmlFor="avaliacao_google" className={labelCls}>Avaliação Google</label>
+                                <input id="avaliacao_google" type="text" inputMode="decimal" name="avaliacao_google" value={form.avaliacao_google ?? ""} onChange={set} className={inputCls} placeholder="4,9" />
+                                <p className="mt-1 text-xs text-dark-400">Nota de 0 a 5, com vírgula ou ponto.</p>
                             </div>
                         </div>
                     </Section>

@@ -52,9 +52,13 @@ class SettingsController extends Controller
             "logo"             => "nullable|image|mimes:jpeg,png,jpg,gif|max:20480",
             "sobre_titulo"     => "nullable|string",
             "sobre_texto"      => "nullable|string",
-            "anos_mercado"     => "nullable|string",
-            "carros_vendidos"  => "nullable|string",
-            "avaliacao_google" => "nullable|string",
+            "anos_mercado"     => ["nullable", "regex:/^[0-9]{1,2}$/"],
+            "carros_vendidos"  => ["nullable", "regex:/^\+?[0-9]{1,6}$/"],
+            "avaliacao_google" => ["nullable", "regex:/^[0-5]([.,][0-9])?$/"],
+        ], [
+            "anos_mercado.regex"     => "Use só números, por exemplo 12.",
+            "carros_vendidos.regex"  => "Use só números, por exemplo +500.",
+            "avaliacao_google.regex" => "Use uma nota de 0 a 5, por exemplo 4,9.",
         ]);
 
         if ($request->hasFile("logo")) {
