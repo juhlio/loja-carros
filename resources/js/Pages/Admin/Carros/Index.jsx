@@ -104,7 +104,7 @@ export default function Index({ carros, podeFinanceiro }) {
         { titulo: "Situação" },
         { titulo: "Origem", classe: "hidden lg:table-cell" },
         { titulo: "Combustível", classe: "hidden lg:table-cell" },
-        { titulo: "Ações", classe: "sticky right-0 z-10 bg-dark-900 text-center" },
+        { titulo: "Ações", classe: "sticky right-0 z-10 bg-dark-900 text-center shadow-[-12px_0_12px_-8px_rgba(0,0,0,0.7)]" },
     ];
 
     return (
@@ -263,7 +263,7 @@ export default function Index({ carros, podeFinanceiro }) {
                                             </td>
                                             <td className="hidden lg:table-cell px-6 py-4 text-sm whitespace-nowrap">{ORIGENS[carro.origem] ?? "—"}</td>
                                             <td className="hidden lg:table-cell px-6 py-4 capitalize text-sm">{carro.combustivel}</td>
-                                            <td className="sticky right-0 z-10 bg-dark-900 group-hover:bg-dark-800 px-2 py-2">
+                                            <td className="sticky right-0 z-10 bg-dark-900 group-hover:bg-dark-800 px-2 py-2 shadow-[-12px_0_12px_-8px_rgba(0,0,0,0.7)]">
                                                 <div className="flex justify-center">
                                                     <Link href={`/admin/carros/${carro.id}`} className={`${acaoCls} text-dark-100`}>
                                                         Ver

@@ -242,7 +242,7 @@ export default function Edit({ carro, podeFinanceiro, custos = [], categoriasCus
                     )}
 
                     {/* Barra de salvar fixa no rodapé do formulário */}
-                    <div className="sticky bottom-0 -mx-6 sm:-mx-8 -mb-6 sm:-mb-8 px-6 sm:px-8 py-4 bg-dark-900/95 backdrop-blur-[12px] border-t border-white/[0.06] flex gap-4">
+                    <div className="sticky bottom-0 -mb-6 sm:-mb-8 px-0 py-4 bg-dark-900/95 backdrop-blur-[12px] border-t border-white/[0.06] flex gap-4">
                         <button type="submit" disabled={loading} className="flex-1 bg-accent text-dark-950 font-bold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 min-h-[44px]">
                             {loading ? "Salvando..." : "Atualizar carro"}
                         </button>

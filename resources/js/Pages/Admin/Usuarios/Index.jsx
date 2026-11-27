@@ -105,7 +105,7 @@ export default function Index({ usuarios }) {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex gap-3 justify-center">
-                                                <Link href={`/admin/usuarios/${u.id}/edit`} className="text-xs font-bold text-accent hover:opacity-70 transition-opacity">
+                                                <Link href={`/admin/usuarios/${u.id}/edit`} className="inline-flex items-center min-h-[44px] px-2 text-xs font-bold text-accent hover:opacity-70 transition-opacity">
                                                     Editar
                                                 </Link>
                                                 {u.id !== adminAtual?.id && adminAtual?.role === "super_admin" && (

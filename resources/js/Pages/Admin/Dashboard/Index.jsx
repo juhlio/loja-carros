@@ -86,7 +86,7 @@ export default function Index({ podeFinanceiro, estoque, porSituacao, financeiro
                                             <p className="font-semibold truncate">{c.nome}</p>
                                             <p className="text-xs text-dark-400">{c.detalhe}</p>
                                         </div>
-                                        <Link href={c.url} className="text-accent text-sm font-semibold hover:opacity-70 whitespace-nowrap">Ver ficha</Link>
+                                        <Link href={c.url} className="inline-flex items-center min-h-[44px] text-accent text-sm font-semibold hover:opacity-70 whitespace-nowrap">Ver ficha</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -116,7 +116,7 @@ export default function Index({ podeFinanceiro, estoque, porSituacao, financeiro
                                                     <p className="text-sm font-semibold truncate">{item.nome}</p>
                                                     {item.detalhe && <p className="text-xs text-dark-400">{item.detalhe}</p>}
                                                 </div>
-                                                <Link href={item.url} className="text-accent text-xs font-semibold hover:opacity-70 whitespace-nowrap">Abrir</Link>
+                                                <Link href={item.url} className="inline-flex items-center min-h-[44px] text-accent text-xs font-semibold hover:opacity-70 whitespace-nowrap">Abrir</Link>
                                             </li>
                                         ))}
                                     </ul>
