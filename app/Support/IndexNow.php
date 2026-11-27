@@ -20,7 +20,8 @@ class IndexNow
     {
         $urls = array_values(array_filter($urls));
 
-        if (empty($urls)) {
+        // Só avisa os buscadores em produção. Teste e local não devem gerar indexação.
+        if (empty($urls) || !app()->environment('production')) {
             return;
         }
 
